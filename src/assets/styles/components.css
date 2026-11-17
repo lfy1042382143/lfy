@@ -1,0 +1,444 @@
+/* ==========================================================================
+   components.css —— 可复用组件样式（标题组 / 信息列表 / 数据卡 / 标记 / 地图）
+   ========================================================================== */
+
+/* ------------------------------- 区块标题 ------------------------------- */
+.sec-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 40px;
+}
+
+.sec-head__main {
+  max-width: 640px;
+}
+
+.sec-head__title {
+  margin-top: 14px;
+  font-family: var(--font-serif);
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.28;
+}
+
+.sec-head__desc {
+  margin-top: 12px;
+  color: var(--ink-2);
+  font-size: 15px;
+  line-height: 1.85;
+}
+
+.sec-head__aside {
+  flex-shrink: 0;
+  padding-bottom: 4px;
+}
+
+/* ------------------------------- 信息键值列表 ------------------------------- */
+.info-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-list__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 13px 0;
+  border-bottom: 1px dashed var(--line);
+  font-size: 14.5px;
+}
+
+.info-list__row:last-child {
+  border-bottom: none;
+}
+
+.info-list__key {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink-3);
+  flex-shrink: 0;
+}
+
+.info-list__key .el-icon {
+  font-size: 14px;
+  color: var(--ink-4);
+}
+
+.info-list__val {
+  color: var(--ink);
+  font-weight: 500;
+  text-align: right;
+  line-height: 1.6;
+}
+
+.info-list--dense .info-list__row {
+  padding: 9px 0;
+  font-size: 14px;
+}
+
+/* ------------------------------- 数据方块 ------------------------------- */
+.stat-item {
+  padding: 22px 20px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  text-align: left;
+  transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.stat-item:hover {
+  border-color: rgba(47, 107, 94, 0.28);
+  transform: translateY(-3px);
+}
+
+.stat-item__value {
+  font-family: var(--font-serif);
+  font-size: 34px;
+  line-height: 1.1;
+  font-weight: 600;
+  color: var(--brand-ink);
+  letter-spacing: -0.02em;
+}
+
+.stat-item__value span {
+  font-size: 14px;
+  margin-left: 3px;
+  color: var(--ink-3);
+  font-family: var(--font-sans);
+  font-weight: 500;
+}
+
+.stat-item__label {
+  margin-top: 8px;
+  font-size: 12.5px;
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+}
+
+/* ------------------------------- 小图文卡 ------------------------------- */
+.tile {
+  display: flex;
+  gap: 14px;
+  padding: 20px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+}
+
+.tile__icon {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--brand-soft);
+  font-size: 20px;
+}
+
+.tile__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.tile__desc {
+  margin-top: 6px;
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--ink-2);
+}
+
+/* ------------------------------- 引文块 ------------------------------- */
+.pullquote {
+  position: relative;
+  padding: 28px 32px 28px 40px;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, rgba(47, 107, 94, 0.07), rgba(181, 138, 69, 0.06));
+  border: 1px solid rgba(47, 107, 94, 0.12);
+}
+
+.pullquote::before {
+  content: "“";
+  position: absolute;
+  left: 14px;
+  top: 2px;
+  font-family: var(--font-serif);
+  font-size: 46px;
+  line-height: 1;
+  color: rgba(47, 107, 94, 0.28);
+}
+
+.pullquote p {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  line-height: 1.85;
+  color: var(--brand-ink);
+}
+
+.pullquote cite {
+  display: block;
+  margin-top: 12px;
+  font-style: normal;
+  font-size: 12.5px;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+}
+
+/* ------------------------------- 小标题行 ------------------------------- */
+.mini-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.mini-head::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+/* ------------------------------- 圆点列表 ------------------------------- */
+.dot-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dot-list li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: var(--ink-2);
+}
+
+.dot-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand);
+  opacity: 0.5;
+}
+
+/* ------------------------------- 卡片内分区 ------------------------------- */
+.card-pad {
+  padding: 32px;
+}
+
+.hairline {
+  height: 1px;
+  background: var(--line-soft);
+  border: 0;
+  margin: 24px 0;
+}
+
+/* ------------------------------- 地图面板 ------------------------------- */
+.map-panel {
+  position: relative;
+  height: 420px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  box-shadow: var(--shadow-sm);
+}
+
+.map-panel__canvas {
+  width: 100%;
+  height: 100%;
+  background: #eef1ee;
+}
+
+/* 无地图 Key 时的降级视图 */
+.map-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 28px;
+  background:
+    radial-gradient(120% 90% at 80% 0%, #eef4f0 0%, transparent 60%),
+    linear-gradient(160deg, #f2f5f2 0%, #e9eeea 100%);
+  overflow: hidden;
+}
+
+.map-fallback__pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.55;
+  background-image:
+    linear-gradient(115deg, transparent 46%, #dfe6e1 47%, #dfe6e1 48%, transparent 49%),
+    linear-gradient(65deg, transparent 40%, #dfe6e1 41%, #dfe6e1 42%, transparent 43%),
+    linear-gradient(to right, rgba(30, 36, 34, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(30, 36, 34, 0.05) 1px, transparent 1px);
+  background-size: 320px 320px, 260px 260px, 40px 40px, 40px 40px;
+  pointer-events: none;
+}
+
+.map-fallback__pin {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  transform: translate(-50%, -100%);
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50% 50% 50% 6px;
+  rotate: -45deg;
+  background: var(--brand);
+  box-shadow: 0 12px 24px -10px rgba(47, 107, 94, 0.9);
+}
+
+.map-fallback__pin span {
+  rotate: 45deg;
+  font-size: 18px;
+}
+
+.map-fallback__card {
+  position: relative;
+  max-width: 380px;
+  padding: 20px 22px;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+}
+
+.map-fallback__label {
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand);
+  font-weight: 600;
+}
+
+.map-fallback__address {
+  margin-top: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.map-fallback__meta {
+  margin-top: 6px;
+  font-size: 12.5px;
+  color: var(--ink-3);
+  font-family: var(--font-mono);
+}
+
+.map-fallback__actions {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.map-panel__tag {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  z-index: 2;
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--line);
+  color: var(--ink-3);
+}
+
+/* ------------------------------- Element Plus 局部微调 ------------------------------- */
+.el-button {
+  font-weight: 500;
+}
+
+.el-button--primary {
+  box-shadow: 0 10px 24px -14px rgba(47, 107, 94, 0.9);
+}
+
+.el-button.is-round {
+  padding-left: 22px;
+  padding-right: 22px;
+}
+
+.el-timeline {
+  padding-left: 4px;
+}
+
+.el-progress-bar__outer {
+  background-color: #eeeae1 !important;
+}
+
+.el-progress-bar__inner {
+  border-radius: 99px;
+  background-image: linear-gradient(90deg, #3b7d6e, #245548);
+}
+
+.el-divider {
+  border-color: var(--line-soft);
+}
+
+.el-drawer__header {
+  margin-bottom: 8px;
+  padding: 20px 20px 0;
+  color: var(--ink);
+}
+
+.el-drawer__body {
+  padding: 12px 20px 20px;
+}
+
+.el-form-item__label {
+  font-size: 13.5px;
+  color: var(--ink-2);
+}
+
+.el-input__wrapper,
+.el-textarea__inner {
+  box-shadow: 0 0 0 1px var(--line) inset !important;
+  background-color: var(--surface);
+  border-radius: 10px;
+}
+
+.el-input__wrapper.is-focus,
+.el-textarea__inner:focus {
+  box-shadow: 0 0 0 1px var(--brand) inset !important;
+}
+
+@media (max-width: 960px) {
+  .sec-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    margin-bottom: 30px;
+  }
+
+  .card-pad {
+    padding: 24px;
+  }
+
+  .map-panel {
+    height: 340px;
+  }
+}
