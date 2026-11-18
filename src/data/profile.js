@@ -314,6 +314,40 @@ export const contact = {
   tips: '如果要来学校找我，提前说一声，我把时间和具体地点一起定好，校门登记也方便些。',
 }
 
+/* ------------------------------ 我的其他项目 ------------------------------ */
+export const projects = [
+  {
+    id: 'book',
+    name: '藏书阁',
+    en: 'Book Archive',
+    url: 'https://book.cat21432961.online',
+    icon: '📚',
+    desc: '我的图书与小说站点，用来归档读过和想读的书，附简单的阅读记录与书摘。',
+    tags: ['阅读', '归档', '书摘'],
+    accent: 'brand',
+  },
+  {
+    id: 'game',
+    name: '深渊试炼',
+    en: 'Abyss Trial',
+    url: 'https://game.cat21432961.online',
+    icon: '🎮',
+    desc: '一个小游戏项目（Abyss Trial），偏动作与关卡试炼的玩法，还在持续打磨。',
+    tags: ['游戏', '动作', '关卡'],
+    accent: 'gold',
+  },
+  {
+    id: 'music',
+    name: '声场 SOUNDFIELD',
+    en: 'Online Music',
+    url: 'https://music.cat21432961.online',
+    icon: '🎵',
+    desc: '在线音乐站点，用来整理常听的曲目和歌单，也算给自己搭的一个音乐角落。',
+    tags: ['音乐', '歌单', '播放'],
+    accent: 'deep',
+  },
+]
+
 /* ------------------------------ 首页亮点 ------------------------------ */
 export const highlights = [
   {

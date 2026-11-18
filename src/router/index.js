@@ -38,6 +38,12 @@ const routes = [
     meta: { title: '联系我' },
   },
   {
+    path: '/projects',
+    name: 'projects',
+    component: () => import('@/views/ProjectsView.vue'),
+    meta: { title: '我的项目' },
+  },
+  {
     path: '/:pathMatch(.*)*',
     redirect: '/',
   },
