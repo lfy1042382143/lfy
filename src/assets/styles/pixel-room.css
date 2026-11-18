@@ -78,7 +78,7 @@
     transparent 1px,
     transparent 3px
   );
-  opacity: 0.5;
+  opacity: 0.34;
 }
 
 .pixel-room__svg {
@@ -151,12 +151,12 @@
 
 /* 雨滴下落，走完整条窗高后重来 */
 .px-rain {
-  animation: px-rain-fall 1.15s steps(9, end) infinite;
+  animation: px-rain-fall 1.35s steps(11, end) infinite;
 }
 
 @keyframes px-rain-fall {
-  from { transform: translateY(-4px); }
-  to { transform: translateY(38px); }
+  from { transform: translateY(-6px); }
+  to { transform: translateY(82px); }
 }
 
 /* 星星 / 窗口灯光呼吸 */
@@ -184,7 +184,7 @@
 /* 挂钟：分针每分钟跳一格，时针慢慢挪 */
 .px-clock-hand {
   transform-box: view-box;
-  transform-origin: 126.5px 17px;
+  transform-origin: 210px 28px;
   animation: px-clock-min 60s steps(60, end) infinite;
 }
 
@@ -195,7 +195,7 @@
 
 .px-clock-hand-h {
   transform-box: view-box;
-  transform-origin: 127px 17px;
+  transform-origin: 210px 28px;
   animation: px-clock-hour 360s steps(12, end) infinite;
 }
 
@@ -210,9 +210,9 @@
 }
 
 @keyframes px-steam {
-  0% { transform: translateY(2px); opacity: 0; }
+  0% { transform: translateY(3px); opacity: 0; }
   25% { opacity: 0.6; }
-  100% { transform: translateY(-7px); opacity: 0; }
+  100% { transform: translateY(-10px); opacity: 0; }
 }
 
 /* 坐着的人轻微起伏 */
@@ -270,7 +270,7 @@
   0% { transform: translate(0, 0); opacity: 0; }
   20% { opacity: 0.5; }
   70% { opacity: 0.28; }
-  100% { transform: translate(3px, -7px); opacity: 0; }
+  100% { transform: translate(5px, -12px); opacity: 0; }
 }
 
 /* 主机电源灯 */
@@ -281,6 +281,48 @@
 @keyframes px-led {
   0%, 70%, 100% { opacity: 1; }
   72%, 92% { opacity: 0.2; }
+}
+
+/* 高达的监视器眼灯 */
+.px-eye {
+  animation: px-eye 3.4s steps(1, end) infinite;
+}
+
+@keyframes px-eye {
+  0%, 72%, 100% { opacity: 1; }
+  74%, 88% { opacity: 0.35; }
+}
+
+/* 战甲胸口 / 手柄的能量核心呼吸 */
+.px-core {
+  animation: px-core 2.2s steps(4, end) infinite;
+}
+
+@keyframes px-core {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* 海报里的扫描线往下扫 */
+.px-hud-scan {
+  animation: px-hud-scan 4.6s steps(9, end) infinite;
+}
+
+@keyframes px-hud-scan {
+  0% { transform: translateY(0); opacity: 0; }
+  12% { opacity: 0.5; }
+  88% { opacity: 0.5; }
+  100% { transform: translateY(28px); opacity: 0; }
+}
+
+/* 卡面高光来回扫 */
+.px-shine {
+  animation: px-shine 5.2s steps(1, end) infinite;
+}
+
+@keyframes px-shine {
+  0%, 100% { opacity: 0.06; }
+  50% { opacity: 0.3; }
 }
 
 /* 错峰：让成组的动画不在同一帧动作 */
