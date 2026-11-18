@@ -16,13 +16,13 @@ useReveal()
             代码之外，<em>还有点别的</em>
           </h1>
           <p class="page-head__desc">
-            业余时间基本被四件事占着：拼高达、打 PTCG、开一局 Apex，或者在 Warframe 里折腾配装。
-            一个动手，一个动脑，两个动队友——共同点是都能让人从屏幕前的工作里抽离出来。
+            业余时间基本被四件事占着：拼高达、收 PTCG 的卡、一个人开一局 Apex，或者在 Warframe 里折腾配装。
+            一个动手，一个收集，两个自己跟自己较劲——共同点是都能让人从屏幕前的工作里抽离出来。
           </p>
           <div class="page-head__meta">
             <span class="chip chip--brand">拼高达 · PTCG</span>
             <span class="chip">Apex 英雄 · Warframe</span>
-            <span class="chip">手作 · 卡牌 · 射击</span>
+            <span class="chip">手作 · 收藏 · 射击</span>
           </div>
         </div>
         <div class="page-head__aside">
@@ -92,11 +92,11 @@ useReveal()
                 </div>
               </div>
               <div class="tile reveal">
-                <div class="tile__icon">👥</div>
+                <div class="tile__icon">🗂️</div>
                 <div>
-                  <div class="tile__title">一起玩</div>
+                  <div class="tile__title">收集</div>
                   <div class="tile__desc">
-                    三排、线下打牌、互相看对方的新模型——这些乐趣都是靠人凑起来的，一个人玩不出那个味道。
+                    卡按系列排进卡册，拼好的机体在架子上排成一列——收着、偶尔翻一翻，本身就是乐趣。
                   </div>
                 </div>
               </div>
@@ -107,14 +107,14 @@ useReveal()
             <div class="mini-head">这些小习惯</div>
             <ul class="dot-list">
               <li>拼之前先把板件按字母排好，找件能省一半时间。</li>
-              <li>组卡先定一套赢法，再往里塞牌，不然越组越乱。</li>
+              <li>收卡按系列归档，想翻哪套直接抽出来，不用一张张找。</li>
               <li>游戏里想练的东西，先定一个小目标再开局。</li>
             </ul>
 
             <el-divider style="margin: 26px 0" />
 
             <p class="form-note">
-              如果你也在拼模型、打牌，或者想找人凑一局，欢迎在留言里说一声——换卡、聊配装都行。
+              如果你也在拼模型、收卡，或者想聊配装、聊聊单排心得，欢迎在留言里说一声。
             </p>
             <el-button
               type="primary"

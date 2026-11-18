@@ -70,7 +70,7 @@ zhangsan-blog/
 | `practices` | 实习经历、课程项目、毕业设计，按「时间 / 角色 / 做了什么 / 结果」写 |
 | `skills` | 熟练度数值与说明按自己的实际感受调 |
 | `certificates` | 四六级等证书；已有项把 `done` 设为 `true` 并填年份 |
-| `hobbies` | 四项爱好已填（拼高达 / PTCG / Apex / Warframe），可补「模型数量、游戏时长、卡组」等具体数字 |
+| `hobbies` | 四项爱好已填（拼高达 / PTCG 只收藏 / Apex 单排最高钻石 / Warframe），可补「模型数量、游玩时长」等具体数字 |
 
 > 页面上的「待补充」标签由数据里的 `pending: true` 控制，补齐内容后把该字段删掉即可。
 
