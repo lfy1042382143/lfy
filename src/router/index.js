@@ -20,10 +20,10 @@ const routes = [
     meta: { title: '教育背景' },
   },
   {
-    path: '/work',
-    name: 'work',
-    component: () => import('@/views/WorkView.vue'),
-    meta: { title: '工作经历' },
+    path: '/practice',
+    name: 'practice',
+    component: () => import('@/views/PracticeView.vue'),
+    meta: { title: '实践与技能' },
   },
   {
     path: '/hobbies',
@@ -53,7 +53,7 @@ const router = createRouter({
   },
 })
 
-const SITE_NAME = '张三 · 个人博客'
+const SITE_NAME = '刘福洋 · 个人博客'
 
 router.afterEach((to) => {
   document.title = to.meta.title ? `${to.meta.title} | ${SITE_NAME}` : SITE_NAME

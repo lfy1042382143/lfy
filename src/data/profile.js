@@ -1,365 +1,365 @@
 /**
  * 站点内容配置 —— 所有页面的数据都集中在这里
  * 后续补充真实信息时，只需要改这个文件，无需动页面模板。
+ * 标注 pending: true 的条目会在页面上显示「待补充」标记。
  */
 
 /* ------------------------------ 基本信息 ------------------------------ */
+const BIRTHDAY = '2003-05-31'
+
+function calcAge(birthday) {
+  const birth = new Date(birthday)
+  const now = new Date()
+  let result = now.getFullYear() - birth.getFullYear()
+  const m = now.getMonth() - birth.getMonth()
+  if (m < 0 || (m === 0 && now.getDate() < birth.getDate())) result -= 1
+  return result
+}
+
+export const age = calcAge(BIRTHDAY)
+
 export const profile = {
-  name: '张三',
-  englishName: 'Zhang San',
-  initials: 'ZS',
-  title: '前端工程师 / 独立开发者',
+  name: '刘福洋',
+  englishName: 'Liu Fuyang',
+  initials: 'LFY',
+  birthday: BIRTHDAY,
+  birthdayText: '2003 年 5 月 31 日',
+  gender: '男',
+  age,
+  title: '软件工程 · 中外合作办学',
+  role: '广西科技大学 × 南十字星大学',
   intro:
-    '一名常居杭州的前端工程师，6 年电商与内容平台经验，喜欢把复杂的业务抽象成清晰的组件与流程。',
-  slogan: '把复杂留给自己，把简单交给用户。',
+    '2003 年生于内蒙古赤峰，在大连读完小学到高中，后来到柳州读软件工程——中澳合作办学项目，四年下来既学会了写代码，也习惯了全英文的课堂。',
+  slogan: '把学到的东西，做成能跑起来的东西。',
+  email: 'liufuyang@example.com',
+  phone: '', // 待补充
+  wechat: '', // 待补充
   bio: [
-    '你好，我是张三。目前在做内容中台的前端架构，日常打交道的是组件设计、构建链路和性能指标。比起写得多漂亮，我更在意方案在线上跑得稳不稳。',
-    '工作之外，我用相机记录城市，用长跑丈量街道，也会把一些想法写成开源项目。这个站点是我的一份长期自述，用来记录经历、项目与生活。',
+    '你好，我是刘福洋。软件工程专业，读的是广西科技大学与澳大利亚南十字星大学合作举办的本科项目：四年都在柳州完成，澳方老师带着原版教材过来全英文授课，毕业时拿到中澳两边的学位证书。',
+    '我喜欢那种「想法变成能点开的东西」的过程——从一行代码到一个能交付的小项目。这个站点用来记录我的经历、学校和目前掌握的东西，也会慢慢补充更多细节。',
   ],
-  location: '中国 · 浙江 · 杭州',
-  email: 'zhangsan@example.com',
-  phone: '138****8888',
-  wechat: 'zhangsan_dev',
-  tags: ['Vue 3', 'TypeScript', 'Node.js', '数据可视化', '性能优化', '摄影'],
+  tags: ['软件工程', '中外合作办学', 'Java', 'Python', 'Web 开发', '英文授课'],
+  cities: [
+    {
+      tag: '出生地',
+      name: '内蒙古 · 赤峰',
+      desc: '2003 年在这里出生。北方的四季和辽阔，是我对「家」最早的印象。',
+      icon: '🌾',
+      colorKey: 'gold',
+    },
+    {
+      tag: '成长地',
+      name: '辽宁 · 大连',
+      desc: '小学、初中、高中十二年都在大连，海边长大的孩子，出门习惯带件外套。',
+      icon: '🌊',
+      colorKey: 'brand',
+    },
+    {
+      tag: '求学地',
+      name: '广西 · 柳州',
+      desc: '大学四年在柳州，柳江、紫荆花和一碗螺蛳粉，是这段时光的底色。',
+      icon: '⛰️',
+      colorKey: 'deep',
+    },
+  ],
   stats: [
-    { value: '6', suffix: '年', label: '前端开发经验' },
-    { value: '42', suffix: '个', label: '参与交付项目' },
-    { value: '1.2k', suffix: '+', label: '开源 Star' },
-    { value: '40', suffix: '本', label: '年均阅读量' },
+    { value: String(age), suffix: '岁', label: '2003 年出生' },
+    { value: '3', suffix: '座', label: '赤峰 · 大连 · 柳州' },
+    { value: '12', suffix: '年', label: '在大连求学' },
+    { value: '2', suffix: '份', label: '中澳学位证书' },
   ],
   social: [
     { name: 'GitHub', icon: 'github', url: 'https://github.com/' },
-    { name: '掘金', icon: 'juejin', url: 'https://juejin.cn/' },
-    { name: '邮箱', icon: 'mail', url: 'mailto:zhangsan@example.com' },
+    { name: '邮箱', icon: 'mail', url: 'mailto:liufuyang@example.com' },
   ],
 }
 
 /* ------------------------------ 个人经历 ------------------------------ */
 export const journey = [
   {
-    year: '2024 - 至今',
-    stage: '现在',
-    title: '独立开发与开源',
-    subtitle: '业余时间维护个人项目',
+    year: '2025.06',
+    stage: '里程碑',
+    title: '本科毕业 · 拿到两份学位证书',
+    subtitle: '广西科技大学 × 南十字星大学',
     description:
-      '把工作里沉淀的组件与工具整理成开源库，累计 1.2k Star；同时维护一个摄影作品集站点，用 Nuxt 做的静态化 + 图片懒加载方案。',
-    highlights: ['开源组件库 v2 发布', '技术博客累计 60+ 篇', '摄影站点上线'],
+      '完成软件工程专业（中外合作办学）四年学业，成绩合格，同时获得广西科技大学本科毕业证书、工学学士学位证书，以及澳大利亚南十字星大学信息技术学士学位证书（教育部认证）。',
+    highlights: ['工学学士', '信息技术学士', 'ACS 认证项目'],
     type: 'growth',
   },
   {
-    year: '2022 - 至今',
-    stage: '职场',
-    title: '高级前端工程师',
-    subtitle: '阿里巴巴 · 内容技术团队',
+    year: '2021.09 - 2025.06',
+    stage: '大学',
+    title: '软件工程（中外合作办学）',
+    subtitle: '广西科技大学 · 计算机科学与技术学院（软件学院）',
     description:
-      '负责内容中台的前端架构，主导从 Vue 2 到 Vue 3 的渐进式迁移，搭建可视化搭建平台，支撑 30+ 业务方日常运营。',
-    highlights: ['迁移 12 万行存量代码', '首屏性能提升 46%', '带 3 人小组'],
-    type: 'work',
+      '四年制「4+0」培养模式，全程在柳州完成。大一有一年的英语强化训练，之后由澳方教师用原版教材全英文授课，课程覆盖程序设计、数据结构、数据库、软件工程与软件测试等。',
+    highlights: ['4+0 培养模式', '全英文澳方课程', '中澳共同制定培养方案'],
+    type: 'uni',
   },
   {
-    year: '2019 - 2022',
-    stage: '职场',
-    title: '前端工程师',
-    subtitle: '阿里巴巴 · 电商营销团队',
-    description:
-      '参与双十一大促会场开发，负责营销活动页引擎与低代码物料建设，支撑峰值 QPS 期间的前端稳定性。',
-    highlights: ['大促会场 0 事故', '物料库覆盖 80% 需求'],
-    type: 'work',
-  },
-  {
-    year: '2017 - 2019',
-    stage: '职场',
-    title: '前端开发工程师',
-    subtitle: '网易 · 数字内容事业部',
-    description:
-      '从零参与资讯类 H5 产品开发，完成首版上线；沉淀了埋点 SDK 与移动端适配方案，是职业生涯的起点。',
-    highlights: ['首个独立负责项目上线', '沉淀埋点 SDK'],
-    type: 'work',
-  },
-  {
-    year: '2013 - 2017',
-    stage: '求学',
-    title: '本科 · 计算机科学与技术',
-    subtitle: '浙江大学 · 计算机学院',
-    description:
-      '系统学习计算机基础与软件工程，担任校科技社团技术负责人，举办过 5 场前端分享会。',
-    highlights: ['GPA 3.8 / 4.0', '校级优秀毕业生', 'ACM 校赛二等奖'],
+    year: '2018.09 - 2021.06',
+    stage: '高中',
+    title: '高中三年',
+    subtitle: '辽宁 · 大连',
+    description: '在大连读完高中。具体的学校名称和在校经历还在补充中。',
+    highlights: ['大连', '待补充'],
     type: 'study',
+    pending: true,
   },
   {
-    year: '2010 - 2013',
-    stage: '求学',
-    title: '高中 · 理科实验班',
-    subtitle: '杭州第二中学',
-    description: '在这里第一次接触编程，用 VB 写了一个课程表小工具，从此决定学计算机。',
-    highlights: ['物理竞赛省三等奖', '校报美编'],
+    year: '2015.09 - 2018.06',
+    stage: '初中',
+    title: '初中三年',
+    subtitle: '辽宁 · 大连',
+    description: '在大连读初中，学校名称待补充。',
+    highlights: ['大连', '待补充'],
     type: 'study',
+    pending: true,
+  },
+  {
+    year: '2009.09 - 2015.06',
+    stage: '小学',
+    title: '小学六年',
+    subtitle: '辽宁 · 大连',
+    description: '在大连读小学，学校名称待补充。',
+    highlights: ['大连', '待补充'],
+    type: 'study',
+    pending: true,
+  },
+  {
+    year: '2003.05.31',
+    stage: '起点',
+    title: '出生在内蒙古赤峰',
+    subtitle: '内蒙古自治区赤峰市',
+    description: '2003 年 5 月 31 日出生，之后随家人到大连生活，在那里度过了小学到高中的十二年。',
+    highlights: ['赤峰', '男'],
+    type: 'growth',
   },
 ]
 
 /* ------------------------------ 教育背景 ------------------------------ */
 export const education = [
   {
-    school: '浙江大学',
-    schoolEn: 'Zhejiang University',
-    major: '计算机科学与技术',
+    school: '广西科技大学',
+    schoolEn: 'Guangxi University of Science and Technology',
+    major: '软件工程（中外合作办学）',
     degree: '工学学士',
-    period: '2013.09 - 2017.06',
-    location: '浙江省杭州市西湖区余杭塘路 866 号',
-    gpa: '3.8 / 4.0',
-    rank: '专业前 10%',
-    logoText: '浙大',
+    period: '2021.09 - 2025.06',
+    location: '广西柳州市城中区文昌路 2 号 · 文昌校区',
+    gpa: '',
+    rank: '',
+    logoText: '广科大',
     primary: true,
     summary:
-      '四年里把主要精力放在计算机基础与工程实践上：操作系统、编译原理、数据库、计算机网络构成了我的知识底座，社团与外包项目则让我学会把知识变成可交付的东西。',
+      '就读于广西科技大学与澳大利亚南十字星大学合作举办的软件工程专业本科项目（教育部批准书编号 MOE45AU2A20131469N，专业代码 080902H）。项目自 2014 年起开办，采用「4+0」培养模式，四年全程在广西科技大学完成，中澳双方共同制定培养方案，并通过澳大利亚计算机协会（ACS）认证。',
     courses: [
+      '程序设计基础',
       '数据结构与算法',
-      '操作系统',
+      '面向对象程序设计',
+      '数据库原理',
       '计算机网络',
-      '数据库系统',
-      '编译原理',
+      '操作系统',
       '软件工程',
-      '计算机图形学',
-      '人机交互',
+      '软件测试',
+      'Web 开发',
+      '学术英语',
     ],
-    honors: [
-      { year: '2017', text: '校级优秀毕业生' },
-      { year: '2016', text: '国家励志奖学金' },
-      { year: '2015', text: 'ACM 程序设计竞赛校赛二等奖' },
-      { year: '2014', text: '校科技社团技术负责人' },
+    points: [
+      { name: '4+0 培养模式', desc: '四年都在广西科技大学完成，无需出国即可获得澳方学位。' },
+      { name: '全英文澳方课程', desc: '引进 21 门澳方优势课程，澳方教师使用原版教材、全英文授课。' },
+      { name: '一年英语强化', desc: '大一安排英语强化训练，为后续全英文课堂与作业打基础。' },
+      { name: 'ACS 认证', desc: '项目通过澳大利亚计算机协会（ACS）认证，学位含金量有据可查。' },
     ],
+    honors: [],
     campus: [
-      '担任计算机学院科技社团技术负责人，组织 5 场前端技术分享，累计参与 400+ 人次。',
-      '参与学院实验室的课程项目，独立完成一个基于 Canvas 的在线白板。',
-      '毕业设计：《面向移动端的前端性能优化方案研究》，获评优秀毕业设计。',
+      '使用南十字星大学 Blackboard 教学系统与 Collaborate 在线课堂，按澳方要求完成作业与小组汇报。',
+      '在校期间的社团、竞赛等具体经历正在补充中。',
     ],
-    scores: [
-      { label: '专业课平均分', value: 91 },
-      { label: '实践课程评分', value: 95 },
-      { label: '毕业设计', value: 93 },
-    ],
+    scores: [],
+    quote: {
+      text: '英语强化那一年最难受，但也是它让我后来能跟上澳方老师的课。',
+      cite: '—— 关于大学四年的一点体会',
+    },
   },
   {
-    school: '杭州第二中学',
-    schoolEn: 'Hangzhou No.2 High School',
-    major: '理科实验班',
-    degree: '高中',
-    period: '2010.09 - 2013.06',
-    location: '浙江省杭州市上城区建国中路 36 号',
-    gpa: '—',
-    rank: '年级前 15%',
-    logoText: '杭二',
-    primary: false,
+    school: '澳大利亚南十字星大学',
+    schoolEn: 'Southern Cross University',
+    major: 'Bachelor of Information Technology（信息技术）',
+    degree: '信息技术学士',
+    period: '合作办学 · 毕业授予',
+    location: '澳大利亚新南威尔士州 · 利斯莫尔',
+    gpa: '',
+    rank: '',
+    logoText: 'SCU',
+    coop: true,
     summary:
-      '高中阶段打下了比较扎实的数理基础，也在信息课上学着写下了第一行代码——一个能自动排课的 VB 小程序。',
-    courses: ['数学', '物理', '化学', '信息技术', '通用技术'],
-    honors: [
-      { year: '2012', text: '全国中学生物理竞赛省三等奖' },
-      { year: '2011', text: '校报美术编辑' },
+      '合作办学的外方院校，1970 年成立的澳大利亚公立大学，校名取自南半球夜空中最亮的南十字星座，2024 年位列泰晤士高等教育全球最佳年轻大学前 100 名。作为项目澳方学校，为本项目学生开放教学系统，并颁发信息技术学士学位证书（教育部认证）。',
+    courses: ['Information Technology', 'Software Engineering', 'Database Systems', 'Web Development'],
+    points: [
+      { name: '学位证书', desc: '成绩合格者可获颁 Bachelor of Information Technology，教育部予以认证。' },
+      { name: '优先录取', desc: '毕业后可优先录取赴南十字星大学继续攻读硕士学位。' },
     ],
-    campus: ['校报美编，负责版面设计与排版。', '信息课代表，帮同学调试课程作业。'],
-    scores: [
-      { label: '理科综合', value: 88 },
-      { label: '信息技术', value: 96 },
-    ],
+    honors: [],
+    campus: [],
+    scores: [],
   },
 ]
 
-/* ------------------------------ 工作经历 ------------------------------ */
-export const workExperience = [
+/* 中学阶段（学校名称待补充，补充后直接改这里的 name 字段） */
+export const middleSchools = [
+  { stage: '高中', period: '2018.09 - 2021.06', city: '辽宁 · 大连', name: '', pending: true },
+  { stage: '初中', period: '2015.09 - 2018.06', city: '辽宁 · 大连', name: '', pending: true },
+  { stage: '小学', period: '2009.09 - 2015.06', city: '辽宁 · 大连', name: '', pending: true },
+]
+
+/* ------------------------------ 实践与技能 ------------------------------ */
+export const practices = [
   {
-    company: '阿里巴巴集团',
-    companyShort: '阿里',
-    department: '内容技术团队',
-    role: '高级前端工程师',
-    period: '2022.07 - 至今',
-    location: '杭州 · 西溪园区',
-    logoText: 'ALI',
-    current: true,
-    summary:
-      '负责内容中台的前端架构设计与团队技术方案评审，主导 Vue 3 技术栈升级与可视化搭建平台建设，服务 30+ 业务方的日常内容生产。',
-    duties: [
-      '主导内容中台从 Vue 2 到 Vue 3 的渐进式迁移，设计兼容层与灰度方案，12 万行存量代码平滑过渡。',
-      '从 0 到 1 搭建低代码可视化搭建平台，沉淀 60+ 业务物料，活动页产出效率提升约 3 倍。',
-      '制定前端性能与稳定性规范，建立 Core Web Vitals 监控看板，首屏 LCP 从 2.8s 优化到 1.5s。',
-      '带 3 人前端小组，负责方案评审、代码 Review 与新人培养。',
-    ],
-    stack: ['Vue 3', 'TypeScript', 'Vite', 'Pinia', 'Node.js', 'Web Components'],
-    projects: [
-      {
-        name: '内容中台可视化搭建平台',
-        role: '前端负责人',
-        desc: '面向运营的可视化页面搭建工具，支持拖拽编排、实时预览、多端适配与灰度发布。',
-        result: '覆盖 30+ 业务方，活动页上线周期从 3 天缩短到 4 小时。',
-      },
-      {
-        name: '前端性能治理专项',
-        role: '技术 owner',
-        desc: '建立性能指标采集与告警链路，定位并修复首屏阻塞、图片过大、重复请求等 40+ 问题。',
-        result: '整体 LCP 降低 46%，跳出率下降 12%。',
-      },
-    ],
+    kind: '实习经历',
+    period: '待补充',
+    title: '实习经历整理中',
+    desc: '如果后续有实习、兼职或外包项目，会在这里按「时间 / 角色 / 做了什么 / 结果」的格式补充。',
+    pending: true,
   },
   {
-    company: '阿里巴巴集团',
-    companyShort: '阿里',
-    department: '电商营销团队',
-    role: '前端工程师',
-    period: '2019.07 - 2022.06',
-    location: '杭州 · 西溪园区',
-    logoText: 'ALI',
-    current: false,
-    summary:
-      '参与双十一等大促会场开发，负责营销活动页引擎与物料体系建设，在高并发、高时效场景下保障前端稳定交付。',
-    duties: [
-      '负责双十一会场页面的模块开发与联调，连续三年大促零 P1 事故。',
-      '建设活动页物料库，把重复出现的模块标准化，需求交付时间平均缩短 40%。',
-      '推动移动端适配与图片方案统一，减少各业务重复造轮子。',
-    ],
-    stack: ['Vue 2', 'Rax', 'Webpack', 'Sass', '小程序'],
-    projects: [
-      {
-        name: '双十一会场前端支撑',
-        role: '模块 owner',
-        desc: '负责会场主链路模块开发、埋点与降级预案，参与压测与容量评估。',
-        result: '峰值期间页面可用性 99.99%，大促零事故。',
-      },
-    ],
-  },
-  {
-    company: '网易',
-    companyShort: '网易',
-    department: '数字内容事业部',
-    role: '前端开发工程师',
-    period: '2017.07 - 2019.06',
-    location: '杭州 · 滨江',
-    logoText: 'NTES',
-    current: false,
-    summary: '职业生涯的起点，从零参与资讯类 H5 产品开发，完成了从校园项目到线上产品的转变。',
-    duties: [
-      '独立负责资讯 H5 首版开发，完成从设计稿到上线的全流程交付。',
-      '沉淀移动端适配方案与埋点 SDK，被部门内 4 个项目复用。',
-      '参与前端工程化改造，引入 ESLint / 提交规范 / 自动化部署。',
-    ],
-    stack: ['Vue 2', 'JavaScript', 'Webpack', 'Less', 'Nginx'],
-    projects: [
-      {
-        name: '资讯 H5 产品',
-        role: '前端开发',
-        desc: '面向移动端的资讯流产品，包含列表、详情、评论与分享链路。',
-        result: '上线首月日活 8 万，获部门季度优秀项目。',
-      },
-    ],
+    kind: '项目经历',
+    period: '待补充',
+    title: '课程项目与个人项目',
+    desc: '课程设计、毕业设计、自己动手写的小工具都会放在这里，附上技术栈和仓库链接。',
+    pending: true,
   },
 ]
 
-/* ------------------------------ 技能 ------------------------------ */
 export const skills = [
-  { name: 'Vue 3 / 组合式 API', value: 95 },
-  { name: 'TypeScript', value: 88 },
-  { name: 'CSS / 响应式与动效', value: 92 },
-  { name: '工程化（Vite / Webpack）', value: 85 },
-  { name: 'Node.js / BFF', value: 72 },
-  { name: '数据可视化（ECharts）', value: 78 },
+  { name: 'Java', value: 78, note: '面向对象、集合、基础 JavaWeb' },
+  { name: 'Python', value: 72, note: '数据处理脚本、爬虫与自动化小工具' },
+  { name: 'MySQL / 数据库设计', value: 70, note: '建表规范、多表查询、基础索引' },
+  { name: 'HTML / CSS / JavaScript', value: 75, note: '响应式页面、原生交互、常用布局' },
+  { name: 'Vue 3', value: 65, note: '组件化开发、路由与状态管理入门' },
+  { name: 'Git / Linux 基础', value: 68, note: '分支管理、命令行操作、简单部署' },
+]
+
+export const certificates = [
+  { name: '广西科技大学 · 本科毕业证书', org: '广西科技大学', year: '2025', done: true },
+  { name: '工学学士学位证书（软件工程）', org: '广西科技大学', year: '2025', done: true },
+  { name: '信息技术学士学位证书', org: '澳大利亚南十字星大学 · 教育部认证', year: '2025', done: true },
+  { name: '大学英语四级 / 六级', org: '全国大学英语考试', year: '待补充', done: false },
+  { name: '其他技能证书', org: '待补充', year: '待补充', done: false },
+]
+
+export const learningWays = [
+  { icon: '🧱', title: '先跑起来', desc: '不追求一次写对，先让最小版本跑通，再一点点补上结构和边界。' },
+  { icon: '📖', title: '英文资料直接读', desc: '四年英文课堂养成的习惯：官方文档优先，报错原文比二手翻译靠谱。' },
+  { icon: '🔁', title: '把踩过的坑记下来', desc: '遇到的报错和解决方式都留一份笔记，下次少绕一圈。' },
 ]
 
 /* ------------------------------ 兴趣爱好 ------------------------------ */
 export const hobbies = [
   {
+    icon: '🧳',
+    name: '旅行',
+    level: '占位内容 · 陆续补充',
+    desc: '从北方到南方读书，路过不少城市。喜欢自己在一个陌生的地方走两天，看看别人的日常。',
+    tags: ['城市漫游', '待补充'],
+    metric: '3',
+    metricLabel: '长住过的城市',
+    pending: true,
+  },
+  {
     icon: '📷',
     name: '摄影',
-    level: '6 年 · 街头与风光',
-    desc: '一台理光 GR3 陪我走过很多城市的清晨。比起器材，我更喜欢等一个刚好的人刚好路过光里。',
-    tags: ['街头', '风光', '胶片色调'],
-    metric: '1.2 万张',
-    metricLabel: '累计快门',
+    level: '占位内容 · 陆续补充',
+    desc: '习惯用手机记录日常：海边、街角、宿舍窗外的晚霞。还没入门，但很爱拍。',
+    tags: ['日常记录', '待补充'],
+    metric: '—',
+    metricLabel: '待补充',
+    pending: true,
   },
   {
-    icon: '🏃',
-    name: '长跑',
-    level: '每周 3 次 · 半马',
-    desc: '跑步是最不需要天赋的坚持。沿着钱塘江跑到江风起来，是一天里最清醒的四十分钟。',
-    tags: ['半程马拉松', '晨跑', '心率训练'],
-    metric: '1:42',
-    metricLabel: '半马 PB',
+    icon: '🎧',
+    name: '音乐',
+    level: '占位内容 · 陆续补充',
+    desc: '写代码和坐长途车的时候都要有歌，民谣和说唱听得最多。',
+    tags: ['民谣', '说唱'],
+    metric: '—',
+    metricLabel: '待补充',
+    pending: true,
   },
   {
-    icon: '☕',
-    name: '手冲咖啡',
-    level: '4 年 · V60',
-    desc: '从磨豆开始的一套固定仪式。偏爱浅烘的埃塞日晒，喜欢那种像茶一样的干净尾韵。',
-    tags: ['V60', '浅烘', '埃塞俄比亚'],
-    metric: '3 杯',
-    metricLabel: '每日上限',
+    icon: '🏀',
+    name: '运动',
+    level: '占位内容 · 陆续补充',
+    desc: '偶尔打球、跑步。运动是代码写不出来时最好的暂停键。',
+    tags: ['篮球', '跑步'],
+    metric: '—',
+    metricLabel: '待补充',
+    pending: true,
+  },
+  {
+    icon: '🎮',
+    name: '游戏',
+    level: '占位内容 · 陆续补充',
+    desc: '放松方式之一，也好奇游戏是怎么做出来的——这大概是想学做游戏的一半原因。',
+    tags: ['待补充'],
+    metric: '—',
+    metricLabel: '待补充',
+    pending: true,
   },
   {
     icon: '📚',
     name: '阅读',
-    level: '年均 40 本',
-    desc: '技术书搭着文学书一起读。前者教我怎么做事，后者提醒我为什么做。',
-    tags: ['技术', '文学', '社科'],
-    metric: '40 本',
-    metricLabel: '年均阅读',
-  },
-  {
-    icon: '⛰️',
-    name: '徒步与露营',
-    level: '每月 1 次',
-    desc: '背着帐篷走进山里，信号消失的那一刻，反而觉得世界清楚了起来。',
-    tags: ['重装徒步', '露营', '江浙山地'],
-    metric: '23 座',
-    metricLabel: '走过的山',
-  },
-  {
-    icon: '⌨️',
-    name: '开源与写作',
-    level: '在维护 3 个仓库',
-    desc: '把踩过的坑写成文章和工具，是我对抗遗忘的方式，也常常因此认识很好的朋友。',
-    tags: ['开源', '技术写作', '分享'],
-    metric: '60+',
-    metricLabel: '技术文章',
+    level: '占位内容 · 陆续补充',
+    desc: '技术书读得慢但会读完，也喜欢翻些杂书。最近在读什么，之后补上来。',
+    tags: ['技术', '杂书'],
+    metric: '—',
+    metricLabel: '待补充',
+    pending: true,
   },
 ]
 
 export const readingList = [
-  { title: '《代码整洁之道》', author: 'Robert C. Martin', type: '重读', comment: '每次重构前都会翻两章，提醒自己命名比结构更重要。' },
-  { title: '《设计中的设计》', author: '原研哉', type: '在读', comment: '“无印”的白不是空，是留出来给使用者的余地。' },
-  { title: '《人类简史》', author: '尤瓦尔·赫拉利', type: '读完', comment: '把虚构故事当作理解协作的入口，读起来很有意思。' },
-  { title: '《深入浅出 Node.js》', author: '朴灵', type: '在读', comment: '补 BFF 一层的基础，异步与事件循环讲得透。' },
+  {
+    title: '《代码整洁之道》',
+    author: 'Robert C. Martin',
+    type: '在读',
+    comment: '老师说工作以后会反复翻，先读一遍打个底。',
+  },
+  { title: '《图解 HTTP》', author: '上野宣', type: '读完', comment: '配合课程里的网络部分读的，比教材好懂。' },
+  { title: '其余书单待补充', author: '—', type: '待补充', comment: '把最近在读的书整理好之后补到这里。' },
 ]
 
 /* ------------------------------ 联系与地址 ------------------------------ */
 export const contact = {
-  address: '浙江省杭州市西湖区文三路 199 号 · 某科技园 A 座 12 层',
-  addressShort: '杭州市西湖区文三路 199 号',
-  postcode: '310012',
-  // GCJ-02 火星坐标（腾讯地图 / 高德通用）
-  center: { lat: 30.2803, lng: 120.1341 },
+  address: '广西壮族自治区柳州市城中区文昌路 2 号 · 广西科技大学（文昌校区）',
+  addressShort: '广西柳州 · 广西科技大学',
+  postcode: '545006',
+  // GCJ-02 火星坐标（腾讯地图 / 高德通用）：广西科技大学文昌校区
+  center: { lat: 24.324255, lng: 109.448967 },
   zoom: 15,
   traffic: [
-    { icon: '🚇', text: '地铁 2 号线 · 学院路站 B 口，步行约 600 米' },
-    { icon: '🚌', text: '公交 15 / 37 / 156 路 · 文三路教工路口站' },
-    { icon: '🚗', text: '园区地下车库，访客可登记进入（前 2 小时免费）' },
+    { icon: '🚄', text: '柳州站 → 乘坐 54 路公交至「广西科技大学」站，步行约 200 米' },
+    { icon: '🚌', text: '市区方向可乘 B102 路至「龙潭公园」站，步行约 800 米到校门' },
+    { icon: '✈️', text: '白莲机场 → 机场快线 2 号线至「文昌路西」，换乘 30 路到「广科大东门」' },
   ],
-  workingHours: '工作日 09:30 - 18:30 · 周末偶尔在线',
-  tips: '如需面谈，建议提前一天邮件或微信约时间，我会把会议室一起订好。',
+  workingHours: '在校期间 · 邮件随时可发，一般当天回复',
+  tips: '如果要来学校找我，提前说一声，我把时间和具体地点一起定好，校门登记也方便些。',
 }
 
 /* ------------------------------ 首页亮点 ------------------------------ */
 export const highlights = [
   {
-    icon: '🧩',
-    title: '组件与架构',
-    desc: '擅长把重复业务抽象成可复用组件，主导过 12 万行代码的框架升级。',
+    icon: '🎓',
+    title: '中澳合作培养',
+    desc: '4+0 模式，中澳双方共同制定培养方案，毕业拿到广西科技大学与南十字星大学两份学位证书。',
   },
   {
-    icon: '⚡',
-    title: '性能优化',
-    desc: '从指标采集到落地修复，把首屏 LCP 从 2.8s 降到 1.5s。',
+    icon: '💻',
+    title: '软件工程专业',
+    desc: '从程序设计与数据结构，到数据库、软件测试与 Web 开发，专业基础打得比较系统。',
   },
   {
-    icon: '🎯',
-    title: '业务结果',
-    desc: '更在意方案带来了什么：上线周期从 3 天到 4 小时，是比代码更硬的证明。',
+    icon: '🌏',
+    title: '全英文课堂',
+    desc: '澳方教师用原版教材全英文授课，习惯了读英文文档、写英文作业和做小组汇报。',
   },
 ]

@@ -7,7 +7,7 @@ const initials = profile.initials
 const quickLinks = [
   { name: '个人经历', path: '/experience' },
   { name: '教育背景', path: '/education' },
-  { name: '工作经历', path: '/work' },
+  { name: '实践与技能', path: '/practice' },
   { name: '兴趣爱好', path: '/hobbies' },
   { name: '联系我', path: '/contact' },
 ]

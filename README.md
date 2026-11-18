@@ -1,8 +1,8 @@
-# 张三 · 个人博客
+# 刘福洋 · 个人博客
 
 一个基于 **Vue 3 + Element Plus + Vite + Vue Router** 的个人博客 / 在线简历站点，多页面结构，样式与脚本分离存放，构建产物为纯静态文件，可用 Nginx、Vercel、Netlify、GitHub Pages 或 Docker 部署。
 
-> 站点内容全部为示例信息（张三），后续替换真实资料时**只需要改 `src/data/profile.js`**，页面模板无需改动。
+> 站点内容集中在 **`src/data/profile.js`**，替换资料时只需要改这一个文件；页面上标注 `pending: true` 的条目会自动显示「待补充」标记。
 
 ---
 
@@ -12,7 +12,7 @@
 | --- | --- |
 | 框架 | Vue 3（组合式 API，`<script setup>`） |
 | UI 组件库 | Element Plus 2.x（中文语言包，图标全量注册） |
-| 路由 | Vue Router 4/5（`createWebHistory`，滚动行为恢复） |
+| 路由 | Vue Router（`createWebHistory`，滚动行为恢复） |
 | 构建工具 | Vite |
 | 样式组织 | 独立 CSS 文件，不使用 `<style scoped>`，便于统一改主题 |
 | 数据层 | `src/data/profile.js` 集中管理 |
@@ -21,12 +21,12 @@
 
 | 路由 | 页面 | 主要内容 |
 | --- | --- | --- |
-| `/` | 首页 | 首屏 Hero、数据概览、关于我、亮点、经历预览、兴趣速览、CTA |
-| `/experience` | 个人经历 | 时间线（可按阶段筛选：求学 / 职场 / 成长） |
-| `/education` | 教育背景 | 学校卡片、主修课程、成绩进度条、荣誉、校园经历 |
-| `/work` | 工作经历 | 公司与职责、项目卡片、技能熟练度、工作方法 |
-| `/hobbies` | 兴趣爱好 | 6 项爱好卡片、最近在读清单 |
-| `/contact` | 地址与联系 | 地址、交通指引、**地图模块**、留言表单 |
+| `/` | 首页 | 首屏 Hero、个人名片、数据概览、关于我、三座城市、经历预览、兴趣速览、CTA |
+| `/experience` | 个人经历 | 时间线（可按阶段筛选：成长 / 求学 / 大学） |
+| `/education` | 教育背景 | 广西科技大学、南十字星大学两张卡片、主修课程、项目要点、中学阶段、空状态 |
+| `/practice` | 实践与技能 | 实习与项目（占位）、技能熟练度、证书与学历、学习方式 |
+| `/hobbies` | 兴趣爱好 | 6 项爱好卡片（占位）、最近在读清单 |
+| `/contact` | 联系我 | 地址、邮编、交通指引、**地图模块**、三座城市、留言表单 |
 
 ## 三、目录结构
 
@@ -58,7 +58,23 @@ zhangsan-blog/
       └─ pages.css           # 各页面专属样式
 ```
 
-## 四、本地开发
+## 四、内容维护（待补充清单）
+
+全部内容都在 `src/data/profile.js`，按下面的顺序补最快：
+
+| 位置 | 需要补充什么 |
+| --- | --- |
+| `profile` | 真实邮箱、电话、微信；头像（目前用姓名首字母 LFY 渲染） |
+| `journey` | 大学起止年份若与 2021.09–2025.06 不符，改这里；小学/初中/高中的具体经历 |
+| `education` | 广西科技大学卡的 GPA、排名、荣誉、校园经历；`middleSchools` 里填三所大连的学校名称 |
+| `practices` | 实习经历、课程项目、毕业设计，按「时间 / 角色 / 做了什么 / 结果」写 |
+| `skills` | 熟练度数值与说明按自己的实际感受调 |
+| `certificates` | 四六级等证书；已有项把 `done` 设为 `true` 并填年份 |
+| `hobbies` / `readingList` | 真实爱好、真实书单（现在是占位内容） |
+
+> 页面上的「待补充」标签由数据里的 `pending: true` 控制，补齐内容后把该字段删掉即可。
+
+## 五、本地开发
 
 ```bash
 # 1. 安装依赖（Node >= 18）
@@ -74,16 +90,10 @@ npm run build
 npm run preview
 ```
 
-## 五、内容维护
-
-1. 全站文案、经历、学校、公司、兴趣、联系方式都在 **`src/data/profile.js`**。
-2. 头像目前用姓名首字母（`profile.initials`）渲染，想换成图片：把头像放到 `public/`，在 `SiteHeader.vue` / 首页 `profile-card` 里替换为 `<img>` 即可。
-3. 主题色改 `src/assets/styles/base.css` 里的 `--brand` 等变量；Element Plus 的 `--el-color-primary` 系列已在同一文件覆盖，改一处即可全局生效。
-
 ## 六、地图模块说明（合规）
 
 - 仅使用**腾讯位置服务（腾讯地图 GL JS）**，符合国内地图数据合规要求；未引入任何境外地图源（Google / Bing / Mapbox / OSM 等）。
-- 坐标体系为 **GCJ-02（火星坐标）**，与国内地图服务一致。
+- 坐标体系为 **GCJ-02（火星坐标）**，当前打点在广西科技大学文昌校区（24.324255, 109.448967）。
 - 未配置 Key 时：页面自动降级为「地址卡片」，展示地址、坐标与「在腾讯地图中查看」按钮，不影响其它功能。
 - 配置自己的 Key：
 
@@ -105,26 +115,22 @@ npm run preview
 server {
     listen 80;
     server_name example.com;
-    root /var/www/zhangsan-blog/dist;
+    root /var/www/liufuyang-blog/dist;
     index index.html;
 
-    # 开启 gzip，JS/CSS 体积可压缩 70% 以上
     gzip on;
     gzip_types text/css application/javascript image/svg+xml;
     gzip_min_length 1024;
 
-    # 带 hash 的静态资源长缓存
     location /assets/ {
         expires 1y;
         add_header Cache-Control "public, immutable";
     }
 
-    # History 模式回退
     location / {
         try_files $uri $uri/ /index.html;
     }
 
-    # index.html 不缓存，保证发版后立即生效
     location = /index.html {
         add_header Cache-Control "no-cache, no-store, must-revalidate";
     }
@@ -135,7 +141,7 @@ server {
 
 ```bash
 npm run build
-rsync -avz --delete dist/ user@server:/var/www/zhangsan-blog/dist/
+rsync -avz --delete dist/ user@server:/var/www/liufuyang-blog/dist/
 # 然后 nginx -s reload
 ```
 
@@ -152,9 +158,9 @@ rsync -avz --delete dist/ user@server:/var/www/zhangsan-blog/dist/
 
 ### 方案三：GitHub Pages
 
-1. `vite.config.js` 里把 `base` 改成仓库名：`base: '/lfy/'`（仓库为 `lfy1042382143/lfy` 时）。
+1. `vite.config.js` 里把 `base` 改成仓库名：`base: '/lfy/'`。
 2. 构建后把 `dist/` 推到 `gh-pages` 分支，或在仓库 Settings → Pages 里指定分支。
-3. History 模式回退：把 `dist/index.html` 复制为 `dist/404.html`（Pages 会用 404 页面兜底）。
+3. History 模式回退：把 `dist/index.html` 复制为 `dist/404.html`。
 
 ### 方案四：Docker
 
@@ -173,8 +179,8 @@ EXPOSE 80
 ```
 
 ```bash
-docker build -t zhangsan-blog .
-docker run -d -p 8080:80 zhangsan-blog
+docker build -t liufuyang-blog .
+docker run -d -p 8080:80 liufuyang-blog
 ```
 
 ### 部署到二级目录（如 `https://example.com/blog/`）
@@ -183,6 +189,6 @@ docker run -d -p 8080:80 zhangsan-blog
 
 ## 八、可选优化
 
-- **Element Plus 按需引入**：当前为全量引入（构建产物中 `element-plus` 约 1.1MB，gzip 后 ~358KB）。若在意首屏体积，可引入 `unplugin-vue-components` + `unplugin-auto-import`，改为按需加载，通常可减少 40%~60%。
+- **Element Plus 按需引入**：当前为全量引入（`element-plus` chunk 约 1.14MB，gzip 后 ~358KB）。若在意首屏体积，可引入 `unplugin-vue-components` + `unplugin-auto-import` 改为按需加载。
 - 图片资源建议用 WebP + `loading="lazy"`。
-- 若接后端留言接口，把 `ContactView.vue` 中 `submit()` 的 `setTimeout` 换成真实请求即可。
+- 接后端留言接口时，把 `ContactView.vue` 中 `submit()` 的 `setTimeout` 换成真实请求即可。

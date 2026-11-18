@@ -13,11 +13,11 @@ const submitting = ref(false)
 const form = reactive({
   name: '',
   email: '',
-  topic: '技术交流',
+  topic: '实习 / 工作机会',
   message: '',
 })
 
-const topics = ['技术交流', '工作机会', '合作洽谈', '只是想聊聊']
+const topics = ['实习 / 工作机会', '技术交流', '项目合作', '只是想聊聊']
 
 const rules = {
   name: [{ required: true, message: '请填写你的称呼', trigger: 'blur' }],
@@ -46,7 +46,7 @@ const submit = async () => {
   if (!valid) return
 
   submitting.value = true
-  // 这里只做前端演示：真实项目可换成接口请求（例如 POST /api/messages）
+  // 前端演示：真实项目可换成接口请求（例如 POST /api/messages）
   window.setTimeout(() => {
     submitting.value = false
     ElMessage({
@@ -57,6 +57,12 @@ const submit = async () => {
     formRef.value.resetFields()
   }, 600)
 }
+
+const cityRows = [
+  { key: '出生地', icon: '🌾', value: '内蒙古自治区 · 赤峰市' },
+  { key: '成长地', icon: '🌊', value: '辽宁省 · 大连市（小学至高中）' },
+  { key: '求学地', icon: '⛰️', value: '广西壮族自治区 · 柳州市' },
+]
 </script>
 
 <template>
@@ -70,13 +76,13 @@ const submit = async () => {
             地址在这里，<em>门随时开着</em>
           </h1>
           <p class="page-head__desc">
-            我常年在杭州西湖区一带活动。邮件是我最稳定的联系方式，通常 24 小时内回复；
-            如果是约见面，提前一天说一声，我会把时间空出来。
+            现在常驻广西柳州的广西科技大学文昌校区。邮件是我最稳定的联系方式，一般当天回复；
+            实习、校招或者单纯聊聊天，都欢迎。
           </p>
           <div class="page-head__meta">
-            <span class="chip chip--brand">{{ profile.location }}</span>
+            <span class="chip chip--brand">广西 · 柳州</span>
             <span class="chip">邮件优先</span>
-            <span class="chip">工作日 09:30 - 18:30</span>
+            <span class="chip">开放实习与工作机会</span>
           </div>
         </div>
         <div class="page-head__aside">
@@ -87,15 +93,21 @@ const submit = async () => {
             </div>
             <div class="info-list__row">
               <span class="info-list__key"><el-icon><Phone /></el-icon>电话</span>
-              <span class="info-list__val">{{ profile.phone }}</span>
+              <span class="info-list__val">
+                {{ profile.phone || '待补充' }}
+                <span v-if="!profile.phone" class="pending-tag">待补充</span>
+              </span>
             </div>
             <div class="info-list__row">
               <span class="info-list__key"><el-icon><ChatDotRound /></el-icon>微信</span>
-              <span class="info-list__val">{{ profile.wechat }}</span>
+              <span class="info-list__val">
+                {{ profile.wechat || '待补充' }}
+                <span v-if="!profile.wechat" class="pending-tag">待补充</span>
+              </span>
             </div>
             <div class="info-list__row">
-              <span class="info-list__key"><el-icon><Clock /></el-icon>邮箱响应</span>
-              <span class="info-list__val">通常 24 小时内</span>
+              <span class="info-list__key"><el-icon><Clock /></el-icon>邮件回复</span>
+              <span class="info-list__val">一般当天内</span>
             </div>
           </div>
         </div>
@@ -135,18 +147,10 @@ const submit = async () => {
               </div>
 
               <div class="contact-line">
-                <div class="contact-line__icon"><el-icon><Phone /></el-icon></div>
+                <div class="contact-line__icon"><el-icon><Postcard /></el-icon></div>
                 <div style="flex: 1">
-                  <div class="contact-line__label">Phone</div>
-                  <div class="contact-line__value">{{ profile.phone }}</div>
-                </div>
-              </div>
-
-              <div class="contact-line">
-                <div class="contact-line__icon"><el-icon><ChatDotRound /></el-icon></div>
-                <div style="flex: 1">
-                  <div class="contact-line__label">WeChat</div>
-                  <div class="contact-line__value">{{ profile.wechat }}</div>
+                  <div class="contact-line__label">Postcode</div>
+                  <div class="contact-line__value">{{ contact.postcode }}</div>
                 </div>
               </div>
 
@@ -168,13 +172,23 @@ const submit = async () => {
               <el-divider style="margin: 16px 0" />
               <p class="form-note">{{ contact.tips }}</p>
             </div>
+
+            <div class="contact-block">
+              <div class="mini-head">我的三座城市</div>
+              <div class="info-list info-list--dense">
+                <div v-for="c in cityRows" :key="c.key" class="info-list__row">
+                  <span class="info-list__key">{{ c.icon }} {{ c.key }}</span>
+                  <span class="info-list__val">{{ c.value }}</span>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div>
             <MapPanel
               :center="contact.center"
               :zoom="contact.zoom"
-              :title="profile.name + ' 的工作地点'"
+              :title="profile.name + ' · 广西科技大学'"
               :address="contact.address"
             />
             <p class="form-note" style="margin-top: 14px">
@@ -222,7 +236,7 @@ const submit = async () => {
                   :rows="5"
                   maxlength="500"
                   show-word-limit
-                  placeholder="想聊什么？项目、技术方案、书单，或者约个跑步都可以。"
+                  placeholder="想聊什么？实习机会、项目合作、技术问题，或者只是打个招呼都行。"
                 />
               </el-form-item>
 
@@ -257,9 +271,9 @@ const submit = async () => {
 
             <div class="mini-head">备注</div>
             <ul class="dot-list">
-              <li>邮件请写清来意与时间预期，回复会更快。</li>
-              <li>电话请在 09:30 - 18:30 之间拨打。</li>
-              <li>园区访客需登记，见面我提前帮你报备。</li>
+              <li>邮件请写清来意和时间预期，回复会更快。</li>
+              <li>电话与微信还在补充，暂时请用邮件联系。</li>
+              <li>外来访客进校需要登记，提前说一声我帮忙确认。</li>
             </ul>
 
             <div class="pullquote" style="margin-top: 24px">

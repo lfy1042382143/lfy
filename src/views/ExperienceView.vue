@@ -8,21 +8,21 @@ useReveal()
 const filter = ref('all')
 const stages = [
   { label: '全部', value: 'all' },
-  { label: '求学', value: 'study' },
-  { label: '职场', value: 'work' },
   { label: '成长', value: 'growth' },
+  { label: '求学', value: 'study' },
+  { label: '大学', value: 'uni' },
 ]
 
 const filtered = computed(() =>
   filter.value === 'all' ? journey : journey.filter((i) => i.type === filter.value)
 )
 
-const summary = computed(() => [
+const summary = [
   { value: String(journey.length), label: '关键节点' },
-  { value: '16', label: '时间跨度（年）' },
-  { value: '3', label: '任职公司' },
-  { value: '2', label: '就读学校' },
-])
+  { value: '22', label: '时间跨度（年）' },
+  { value: '3', label: '长住城市' },
+  { value: '2', label: '学位证书' },
+]
 </script>
 
 <template>
@@ -33,22 +33,22 @@ const summary = computed(() => [
         <div>
           <span class="eyebrow">Journey · 个人经历</span>
           <h1 class="page-head__title">
-            十年，<em>一步步走</em>
+            从赤峰出发，<em>一路向南</em>
           </h1>
           <p class="page-head__desc">
-            从杭州的中学机房，到大学实验室，再到写字楼的工位。这里按时间倒序记录我走过的关键节点——
-            每一次转弯都不是计划好的，但回头看，它们连成了一条清楚的线。
+            2003 年在内蒙古赤峰出生，之后在大连读完小学、初中和高中，2021 年到广西柳州读大学。
+            这里按时间倒序记录几个关键节点——地理上一直在往南走，专业上也从「想学计算机」走到「软件工程」。
           </p>
           <div class="page-head__meta">
-            <span class="chip chip--brand">2010 起点</span>
-            <span class="chip">6 个关键节点</span>
-            <span class="chip">求学 → 职场 → 独立开发</span>
+            <span class="chip chip--brand">2003 赤峰出生</span>
+            <span class="chip">大连 12 年</span>
+            <span class="chip">柳州 4 年大学</span>
           </div>
         </div>
         <div class="page-head__aside">
           <div class="pullquote">
             <p>{{ profile.slogan }}</p>
-            <cite>—— 写在简历第一行的话</cite>
+            <cite>—— 写在首页第一行的话</cite>
           </div>
         </div>
       </div>
@@ -69,7 +69,10 @@ const summary = computed(() => [
                 </div>
                 <div class="journey-item__body">
                   <span class="journey-item__dot"></span>
-                  <h3 class="journey-item__title">{{ item.title }}</h3>
+                  <h3 class="journey-item__title">
+                    {{ item.title }}
+                    <span v-if="item.pending" class="pending-tag">待补充</span>
+                  </h3>
                   <div class="journey-item__sub">{{ item.subtitle }}</div>
                   <p class="journey-item__desc">{{ item.description }}</p>
                   <div class="journey-item__tags">
@@ -103,8 +106,8 @@ const summary = computed(() => [
               <el-button round plain @click="$router.push('/education')">
                 <el-icon style="margin-right: 6px"><School /></el-icon>学校与专业详情
               </el-button>
-              <el-button round plain @click="$router.push('/work')">
-                <el-icon style="margin-right: 6px"><Suitcase /></el-icon>公司与项目详情
+              <el-button round plain @click="$router.push('/practice')">
+                <el-icon style="margin-right: 6px"><Suitcase /></el-icon>技能与证书
               </el-button>
             </div>
           </aside>

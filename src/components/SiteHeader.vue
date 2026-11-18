@@ -10,7 +10,7 @@ const navItems = [
   { name: '首页', path: '/', index: '01' },
   { name: '个人经历', path: '/experience', index: '02' },
   { name: '教育背景', path: '/education', index: '03' },
-  { name: '工作经历', path: '/work', index: '04' },
+  { name: '实践与技能', path: '/practice', index: '04' },
   { name: '兴趣爱好', path: '/hobbies', index: '05' },
   { name: '联系我', path: '/contact', index: '06' },
 ]
