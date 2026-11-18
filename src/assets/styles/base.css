@@ -112,7 +112,7 @@ body {
   background-color: var(--bg);
   color: var(--ink);
   font-family: var(--font-sans);
-  font-size: 15.5px;
+  font-size: 17px;
   line-height: 1.72;
   letter-spacing: 0.005em;
   -webkit-font-smoothing: antialiased;
@@ -202,7 +202,7 @@ code, kbd, samp {
   align-items: center;
   gap: 8px;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12.5px;
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -237,7 +237,7 @@ code, kbd, samp {
 
 .lead {
   color: var(--ink-2);
-  font-size: 15.5px;
+  font-size: 17px;
   line-height: 1.95;
 }
 
@@ -271,7 +271,7 @@ code, kbd, samp {
   border: 1px solid var(--line);
   background: transparent;
   color: var(--ink-2);
-  font-size: 12px;
+  font-size: 13.5px;
   line-height: 1.6;
   white-space: nowrap;
   transition: color 0.2s var(--ease), border-color 0.2s var(--ease),
@@ -325,14 +325,14 @@ code, kbd, samp {
   background: var(--gold-soft);
   color: var(--gold);
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11.5px;
   letter-spacing: 0.08em;
   vertical-align: middle;
 }
 
 /* 表单说明文字 */
 .form-note {
-  font-size: 12.5px;
+  font-size: 14px;
   line-height: 1.8;
   color: var(--ink-3);
 }
@@ -361,17 +361,54 @@ code, kbd, samp {
   }
 }
 
-/* ------------------------------- 路由过渡 ------------------------------- */
-.route-fade-enter-active {
-  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+/* ------------------------------- 路由过渡：翻页 ------------------------------- */
+/* 旧页像纸一样向上翻走，新页从下方掀起来，配合轻微模糊和明暗变化 */
+.page-turn-enter-active {
+  animation: page-turn-in 0.4s var(--ease) both;
+  transform-origin: 50% 0%;
+  backface-visibility: hidden;
 }
-.route-fade-leave-active {
-  transition: opacity 0.15s var(--ease);
+
+.page-turn-leave-active {
+  animation: page-turn-out 0.2s cubic-bezier(0.4, 0, 0.7, 0.4) both;
+  transform-origin: 50% 100%;
+  pointer-events: none;
 }
-.route-fade-enter-from {
-  opacity: 0;
-  transform: translateY(8px);
+
+@keyframes page-turn-in {
+  0% {
+    opacity: 0;
+    transform: perspective(1900px) rotateX(10deg) translate3d(0, 30px, -40px);
+    filter: blur(3px) brightness(0.86);
+  }
+  55% {
+    opacity: 1;
+    filter: blur(0) brightness(1);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1900px) rotateX(0deg) translate3d(0, 0, 0);
+    filter: blur(0) brightness(1);
+  }
 }
-.route-fade-leave-to {
-  opacity: 0;
+
+@keyframes page-turn-out {
+  0% {
+    opacity: 1;
+    transform: perspective(1900px) rotateX(0deg) translate3d(0, 0, 0);
+    filter: blur(0) brightness(1);
+  }
+  100% {
+    opacity: 0;
+    transform: perspective(1900px) rotateX(-8deg) translate3d(0, -22px, -30px);
+    filter: blur(2px) brightness(0.8);
+  }
+}
+
+/* 尊重系统「减少动态效果」设置 */
+@media (prefers-reduced-motion: reduce) {
+  .page-turn-enter-active,
+  .page-turn-leave-active {
+    animation: none !important;
+  }
 }

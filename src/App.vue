@@ -10,7 +10,7 @@ import SiteFooter from '@/components/SiteFooter.vue'
     <div class="app-body">
       <main class="app-main">
         <router-view v-slot="{ Component }">
-          <transition name="route-fade" mode="out-in">
+          <transition name="page-turn" mode="out-in" :duration="{ enter: 400, leave: 200 }">
             <component :is="Component" />
           </transition>
         </router-view>
