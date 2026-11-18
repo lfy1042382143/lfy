@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "mylfy",
+  "compatibility_date": "2025-09-01",
+  // 纯静态站点：直接把 dist 作为 Worker 的静态资源目录上传
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  },
+  // 自定义域名（Worker 类型，与 mailhub 一致）
+  "routes": [
+    {
+      "pattern": "mylfy.cat21432961.online",
+      "custom_domain": true
+    }
+  ]
+}

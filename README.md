@@ -36,6 +36,7 @@
 liufuyang-blog/
 ├─ index.html                # 入口 HTML（SEO meta / 标题）
 ├─ vite.config.js            # 构建配置（别名、分包、base）
+├─ wrangler.jsonc            # Cloudflare Worker 部署配置（静态资源 + 自定义域名）
 ├─ package.json
 ├─ public/
 │  └─ favicon.svg
@@ -116,19 +117,49 @@ npm run preview
 | 项 | 值 |
 | --- | --- |
 | 访问地址 | <https://mylfy.cat21432961.online> |
-| 托管平台 | Cloudflare Pages，项目名 `mylfy-blog`，生产分支 `main` |
-| 平台默认域名 | <https://mylfy-blog.pages.dev>（可作备用入口） |
-| DNS | `mylfy` → CNAME `mylfy-blog.pages.dev`，已开启 Cloudflare 代理（橙色云） |
-| 证书 | Cloudflare 自动签发（Google Trust Services），无需手动续期 |
-| SPA 回退 | `public/_redirects` 中 `/*  /index.html  200` |
+| 托管类型 | **Cloudflare Workers**（静态资源 Worker，与账号内其他站点一致，非 Pages） |
+| Worker 名称 | `mylfy` |
+| 平台默认域名 | <https://mylfy.cat21432961.workers.dev>（部分网络环境不可直连，仅作备用） |
+| 自定义域名 | `wrangler.jsonc` 中 `routes[].custom_domain = true`，部署时自动绑定并签发证书 |
+| DNS | Worker 绑定域名时自动写入 `AAAA 100::` 占位记录（已开代理），无需手工维护 |
+| SPA 回退 | `assets.not_found_handling: "single-page-application"`，未知路径回退 `index.html` |
+| 证书 | Cloudflare 边缘自动签发，无需手动续期 |
 
 重新发布：
 
 ```bash
-npm run deploy      # = vite build + wrangler pages deploy dist --project-name mylfy-blog
+npm run deploy      # = vite build + wrangler deploy
 ```
 
-> 首次使用需 `npx wrangler login` 授权；CI 环境改用 `CLOUDFLARE_API_TOKEN`（需 Pages:Edit 与 Zone:DNS:Edit 权限）。
+> 首次使用需 `npx wrangler login` 授权；CI 环境改用 `CLOUDFLARE_API_TOKEN`（需 Workers Scripts:Edit 与 Zone:Workers Routes:Edit 权限）。
+>
+> 注意：`public/_redirects` 只适用于 Pages，Worker 静态资源模式下会报「Infinite loop detected」，SPA 回退请用 `not_found_handling`，因此本项目已移除该文件。
+
+### 方案零：Cloudflare Workers（当前使用）
+
+纯静态站点用 **Workers 静态资源**即可，不需要写 Worker 脚本，也不占用 Pages 项目：
+
+```bash
+npm i -D wrangler      # 首次
+npx wrangler login     # 首次授权
+npm run deploy         # 构建 + 上传 + 绑定域名
+```
+
+`wrangler.jsonc` 关键配置：
+
+```jsonc
+{
+  "name": "mylfy",
+  "compatibility_date": "2025-09-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  },
+  "routes": [{ "pattern": "mylfy.cat21432961.online", "custom_domain": true }]
+}
+```
+
+更换域名时只改 `routes[].pattern`；绑定前该主机名不能存在 A/AAAA/CNAME 记录，否则会报 `already has externally managed DNS records`，先删旧记录再部署。
 
 ### 方案一：Nginx（自建服务器 / 云主机，推荐）
 
@@ -166,7 +197,7 @@ rsync -avz --delete dist/ user@server:/var/www/liufuyang-blog/dist/
 # 然后 nginx -s reload
 ```
 
-### 方案二：Vercel / Netlify / Cloudflare Pages（零运维）
+### 方案二：Vercel / Netlify（零运维）
 
 - 构建命令：`npm run build`，输出目录：`dist`
 - SPA 回退规则：
