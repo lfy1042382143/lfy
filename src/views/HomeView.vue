@@ -233,7 +233,7 @@ const facts = [
         <SectionHeading
           eyebrow="Hobbies"
           title="学习之外的我"
-          desc="旅行、摄影、音乐和运动——这些是代码之外的部分。内容还在陆续补充，先把架子摆出来。"
+          desc="拼高达、打 PTCG、开一局 Apex，或者在 Warframe 里折腾配装——这些是代码之外的部分。"
         >
           <template #aside>
             <el-button round plain @click="$router.push('/hobbies')">

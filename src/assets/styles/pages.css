@@ -839,6 +839,11 @@
   gap: 18px;
 }
 
+/* 卡片数量少（4 张）时排成两列，卡片更宽、文字更松 */
+.hobby-grid--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .hobby-card {
   display: flex;
   flex-direction: column;
