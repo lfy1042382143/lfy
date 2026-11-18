@@ -1,0 +1,309 @@
+/* ==========================================================================
+   pixel-room.css —— 首页像素剖面房间
+   插画本体在 PixelRoom.vue 的 SVG 里，这里只放外框与逐帧动画。
+   所有动画都用 steps()，让运动保持"一格一格"的像素节奏。
+   ========================================================================== */
+
+.pixel-room {
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+/* 顶部状态条：像一块小终端 */
+.pixel-room__bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 13px;
+  border-bottom: 1px solid var(--line-soft);
+  background: var(--bg-soft);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+}
+
+.pixel-room__leds {
+  display: inline-flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.pixel-room__leds i {
+  width: 6px;
+  height: 6px;
+  display: block;
+  background: var(--ink-4);
+}
+
+.pixel-room__leds i:first-child {
+  background: var(--brand);
+}
+
+.pixel-room__leds i:nth-child(2) {
+  background: #f0b45a;
+  opacity: 0.7;
+}
+
+.pixel-room__title {
+  color: var(--ink-2);
+  letter-spacing: 0.1em;
+}
+
+.pixel-room__meta {
+  margin-left: auto;
+  color: var(--ink-4);
+}
+
+/* 画面外框 + CRT 扫描线 */
+.pixel-room__screen {
+  position: relative;
+  display: block;
+  background: #0b1211;
+}
+
+.pixel-room__screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.16) 0,
+    rgba(0, 0, 0, 0.16) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  opacity: 0.5;
+}
+
+.pixel-room__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #0b1211;
+  image-rendering: pixelated;
+}
+
+.pixel-room__cap {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 11px 14px 12px;
+  border-top: 1px solid var(--line-soft);
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--ink-3);
+}
+
+.pixel-room__cap-label {
+  flex-shrink: 0;
+  padding-top: 1px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  color: var(--brand);
+}
+
+/* 首屏房间自己的入场：不依赖 IntersectionObserver，避免观察器失效时停在半透明 */
+.hero__room {
+  animation: room-in 0.85s var(--ease) both;
+}
+
+@keyframes room-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ------------------------------- 动画 ------------------------------- */
+
+/* 屏幕内容轻微闪动，像老显示器 */
+.px-code {
+  animation: px-screen-flicker 5.6s steps(1, end) infinite;
+}
+
+@keyframes px-screen-flicker {
+  0%, 96%, 100% { opacity: 1; }
+  97% { opacity: 0.72; }
+  98% { opacity: 1; }
+  99% { opacity: 0.86; }
+}
+
+/* 光标闪烁 */
+.px-cursor {
+  animation: px-blink 1.06s steps(1, end) infinite;
+}
+
+@keyframes px-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* 雨滴下落，走完整条窗高后重来 */
+.px-rain {
+  animation: px-rain-fall 1.15s steps(9, end) infinite;
+}
+
+@keyframes px-rain-fall {
+  from { transform: translateY(-4px); }
+  to { transform: translateY(38px); }
+}
+
+/* 星星 / 窗口灯光呼吸 */
+.px-twinkle {
+  animation: px-twinkle 3.8s steps(1, end) infinite;
+}
+
+@keyframes px-twinkle {
+  0%, 62%, 100% { opacity: 1; }
+  70%, 88% { opacity: 0.25; }
+}
+
+/* 吊灯灯泡偶尔抖一下 */
+.px-lamp {
+  animation: px-lamp 6.5s steps(1, end) infinite;
+}
+
+@keyframes px-lamp {
+  0%, 91%, 100% { opacity: 0.92; }
+  92% { opacity: 0.55; }
+  94% { opacity: 1; }
+  96% { opacity: 0.7; }
+}
+
+/* 挂钟：分针每分钟跳一格，时针慢慢挪 */
+.px-clock-hand {
+  transform-box: view-box;
+  transform-origin: 126.5px 17px;
+  animation: px-clock-min 60s steps(60, end) infinite;
+}
+
+@keyframes px-clock-min {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.px-clock-hand-h {
+  transform-box: view-box;
+  transform-origin: 127px 17px;
+  animation: px-clock-hour 360s steps(12, end) infinite;
+}
+
+@keyframes px-clock-hour {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 马克杯热气往上飘 */
+.px-steam {
+  animation: px-steam 3s steps(6, end) infinite;
+}
+
+@keyframes px-steam {
+  0% { transform: translateY(2px); opacity: 0; }
+  25% { opacity: 0.6; }
+  100% { transform: translateY(-7px); opacity: 0; }
+}
+
+/* 坐着的人轻微起伏 */
+.px-person {
+  animation: px-bob 3.2s steps(1, end) infinite;
+}
+
+@keyframes px-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1px); }
+}
+
+/* 敲键盘的手 */
+.px-hand {
+  animation: px-type 0.42s steps(1, end) infinite;
+}
+
+@keyframes px-type {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1px); }
+}
+
+/* 音响电平跳动 */
+.px-eq {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: px-eq 1.2s steps(4, end) infinite;
+}
+
+@keyframes px-eq {
+  0%, 100% { transform: scaleY(0.4); }
+  25% { transform: scaleY(0.9); }
+  50% { transform: scaleY(0.55); }
+  75% { transform: scaleY(1); }
+}
+
+/* 叶子轻轻晃 */
+.px-plant {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: px-sway 6s steps(2, end) infinite;
+}
+
+@keyframes px-sway {
+  0%, 100% { transform: rotate(-1.4deg); }
+  50% { transform: rotate(1.4deg); }
+}
+
+/* 光里的灰尘 */
+.px-dust {
+  animation: px-dust 9s steps(6, end) infinite;
+}
+
+@keyframes px-dust {
+  0% { transform: translate(0, 0); opacity: 0; }
+  20% { opacity: 0.5; }
+  70% { opacity: 0.28; }
+  100% { transform: translate(3px, -7px); opacity: 0; }
+}
+
+/* 主机电源灯 */
+.px-led {
+  animation: px-led 2.6s steps(1, end) infinite;
+}
+
+@keyframes px-led {
+  0%, 70%, 100% { opacity: 1; }
+  72%, 92% { opacity: 0.2; }
+}
+
+/* 错峰：让成组的动画不在同一帧动作 */
+.px-d1 { animation-delay: 0.7s; }
+.px-d2 { animation-delay: 1.45s; }
+
+/* 系统开启「减少动态效果」时全部静止 */
+@media (prefers-reduced-motion: reduce) {
+  .pixel-room__svg *,
+  .hero__room {
+    animation: none !important;
+  }
+}
+
+/* 窄屏：状态条字号收一点，避免挤压 */
+@media (max-width: 520px) {
+  .pixel-room__bar {
+    font-size: 10.5px;
+    gap: 8px;
+  }
+
+  .pixel-room__cap {
+    font-size: 12.5px;
+    padding: 10px 12px;
+  }
+}

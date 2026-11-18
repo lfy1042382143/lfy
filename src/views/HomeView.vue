@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import SectionHeading from '@/components/SectionHeading.vue'
+import PixelRoom from '@/components/PixelRoom.vue'
 import { profile, journey, hobbies, highlights } from '@/data/profile'
 import { useReveal } from '@/utils/reveal'
 
@@ -22,7 +23,7 @@ const facts = [
     <!-- ---------------------------------- Hero ---------------------------------- -->
     <section class="hero">
       <div class="container hero__grid">
-        <div>
+        <div class="hero__intro">
           <span class="eyebrow">个人博客 · Personal Blog</span>
 
           <h1 class="hero__title">
@@ -52,6 +53,8 @@ const facts = [
             <span v-for="t in profile.tags" :key="t" class="chip">{{ t }}</span>
           </div>
         </div>
+
+        <PixelRoom class="hero__room" />
 
         <div class="profile-card reveal">
           <div class="profile-card__top">

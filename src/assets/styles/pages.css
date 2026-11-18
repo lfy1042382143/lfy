@@ -10,11 +10,29 @@
 }
 
 .hero__grid {
-  display: block;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(380px, 520px);
+  gap: 48px;
+  align-items: start;
+}
+
+.hero__intro {
+  min-width: 0;
+}
+
+/* 房间面板跟着标题走，不要被拉伸 */
+.hero__room {
+  align-self: start;
+  margin-top: 4px;
+}
+
+/* 名片条横跨整行 */
+.hero .profile-card {
+  grid-column: 1 / -1;
 }
 
 .hero__title {
-  font-size: clamp(46px, 7vw, 96px);
+  font-size: clamp(46px, 6vw, 88px);
   font-weight: 800;
   letter-spacing: -0.045em;
   line-height: 0.96;
@@ -63,6 +81,8 @@
 .hero__slogan mark {
   background: none;
   color: var(--brand);
+  /* 高亮句不要被拆到两行 */
+  white-space: nowrap;
 }
 
 .hero__desc {
@@ -1131,6 +1151,18 @@
 /* ==========================================================================
    响应式
    ========================================================================== */
+@media (max-width: 1280px) {
+  /* 两栏放不下时收成单列：文字在前，房间在后 */
+  .hero__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 34px;
+  }
+
+  .hero__room {
+    max-width: 620px;
+  }
+}
+
 @media (max-width: 1080px) {
   .about-grid {
     grid-template-columns: minmax(0, 1fr) 268px;

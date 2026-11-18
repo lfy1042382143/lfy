@@ -10,6 +10,7 @@ import './assets/styles/base.css'
 import './assets/styles/layout.css'
 import './assets/styles/components.css'
 import './assets/styles/pages.css'
+import './assets/styles/pixel-room.css'
 
 import App from './App.vue'
 import router from './router'
