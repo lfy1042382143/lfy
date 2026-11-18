@@ -3,8 +3,9 @@ import ElementPlus from 'element-plus'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
-/* 样式：Element Plus 基础样式 → 项目自有样式（顺序不可调换，保证变量覆盖生效） */
+/* 样式：Element Plus 基础样式 + 深色变量 → 项目自有样式（顺序不可调换，保证变量覆盖生效） */
 import 'element-plus/dist/index.css'
+import 'element-plus/theme-chalk/dark/css-vars.css'
 import './assets/styles/base.css'
 import './assets/styles/layout.css'
 import './assets/styles/components.css'

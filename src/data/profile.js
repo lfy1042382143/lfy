@@ -144,7 +144,7 @@ export const education = [
     major: '软件工程（中外合作办学）',
     degree: '工学学士',
     period: '2021.09 - 2025.06',
-    location: '广西柳州市城中区文昌路 2 号 · 文昌校区',
+    location: '广西柳州 · 文昌校区',
     gpa: '',
     rank: '',
     logoText: '广科大',

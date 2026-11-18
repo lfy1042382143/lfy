@@ -2,6 +2,8 @@
 
 一个基于 **Vue 3 + Element Plus + Vite + Vue Router** 的个人博客 / 在线简历站点，多页面结构，样式与脚本分离存放，构建产物为纯静态文件，可用 Nginx、Vercel、Netlify、GitHub Pages 或 Docker 部署。
 
+视觉方案是 **Workbench**：深色底 + 薄荷绿强调色 + 等宽字体小标签 + 直角边框；桌面端使用左侧固定竖栏导航，内容区单列自上而下阅读；移动端折叠为顶部栏 + 抽屉菜单。
+
 > 站点内容集中在 **`src/data/profile.js`**，替换资料时只需要改这一个文件；页面上标注 `pending: true` 的条目会自动显示「待补充」标记。
 
 ---
@@ -31,7 +33,7 @@
 ## 三、目录结构
 
 ```
-zhangsan-blog/
+liufuyang-blog/
 ├─ index.html                # 入口 HTML（SEO meta / 标题）
 ├─ vite.config.js            # 构建配置（别名、分包、base）
 ├─ package.json
@@ -39,21 +41,21 @@ zhangsan-blog/
 │  └─ favicon.svg
 └─ src/
    ├─ main.js                # 应用入口：注册 Element Plus、图标、样式
-   ├─ App.vue                # 骨架：页头 + 路由视图 + 页脚 + 回到顶部
+   ├─ App.vue                # 骨架：侧栏 + 路由视图 + 页脚 + 回到顶部
    ├─ router/index.js        # 路由表、标题、滚动行为
    ├─ data/profile.js        # ★ 全站内容数据（改这里即可）
    ├─ utils/
    │  ├─ map.js              # 腾讯地图 SDK 加载与打点
    │  └─ reveal.js           # 滚动入场动画
    ├─ components/
-   │  ├─ SiteHeader.vue      # 吸顶导航 + 移动端抽屉菜单
+   │  ├─ SiteNav.vue         # 左侧固定竖栏导航 + 移动端顶栏/抽屉
    │  ├─ SiteFooter.vue
    │  ├─ SectionHeading.vue  # 区块标题组
    │  └─ MapPanel.vue        # 地图面板（含无 Key 降级视图）
    ├─ views/                 # 6 个页面
    └─ assets/styles/
       ├─ base.css            # 设计变量、重置、排版、Element Plus 主题覆盖
-      ├─ layout.css          # 页头 / 页脚 / 页面头部
+      ├─ layout.css          # 侧栏 / 移动端顶栏 / 页面头部 / 页脚
       ├─ components.css      # 复用组件样式
       └─ pages.css           # 各页面专属样式
 ```
