@@ -90,7 +90,7 @@ export const journey = [
     year: '2021.09 - 2025.06',
     stage: '大学',
     title: '软件工程（中外合作办学）',
-    subtitle: '广西科技大学 · 计算机科学与技术学院（软件学院）',
+    subtitle: '广西科技大学 · 国际教育学院',
     description:
       '四年制「4+0」培养模式，全程在柳州完成。大一有一年的英语强化训练，之后由澳方教师用原版教材全英文授课，课程覆盖程序设计、数据结构、数据库、软件工程与软件测试等。',
     highlights: ['4+0 培养模式', '全英文澳方课程', '中澳共同制定培养方案'],
@@ -99,32 +99,30 @@ export const journey = [
   {
     year: '2018.09 - 2021.06',
     stage: '高中',
-    title: '高中三年',
-    subtitle: '辽宁 · 大连',
-    description: '在大连读完高中。具体的学校名称和在校经历还在补充中。',
-    highlights: ['大连', '待补充'],
+    title: '北京语言大学附属大连高级中学',
+    subtitle: '辽宁 · 大连 · 高中三年',
+    description:
+      '2018 年入学，2021 年毕业，高中三年在大连的北京语言大学附属大连高级中学度过，之后从大连到柳州读大学。',
+    highlights: ['大连', '2018 - 2021'],
     type: 'study',
-    pending: true,
   },
   {
     year: '2015.09 - 2018.06',
     stage: '初中',
-    title: '初中三年',
-    subtitle: '辽宁 · 大连',
-    description: '在大连读初中，学校名称待补充。',
-    highlights: ['大连', '待补充'],
+    title: '大连市第十八中学',
+    subtitle: '辽宁 · 大连 · 初中三年',
+    description: '2015 年入学，2018 年毕业，初中三年就读于大连市第十八中学。',
+    highlights: ['大连', '2015 - 2018'],
     type: 'study',
-    pending: true,
   },
   {
     year: '2009.09 - 2015.06',
     stage: '小学',
-    title: '小学六年',
-    subtitle: '辽宁 · 大连',
-    description: '在大连读小学，学校名称待补充。',
-    highlights: ['大连', '待补充'],
+    title: '辛寨子中心小学',
+    subtitle: '辽宁 · 大连 · 小学六年',
+    description: '2009 年入学，2015 年毕业，小学六年在大连辛寨子中心小学就读。',
+    highlights: ['大连', '2009 - 2015'],
     type: 'study',
-    pending: true,
   },
   {
     year: '2003.05.31',
@@ -142,6 +140,7 @@ export const education = [
   {
     school: '广西科技大学',
     schoolEn: 'Guangxi University of Science and Technology',
+    college: '国际教育学院',
     major: '软件工程（中外合作办学）',
     degree: '工学学士',
     period: '2021.09 - 2025.06',
@@ -151,7 +150,7 @@ export const education = [
     logoText: '广科大',
     primary: true,
     summary:
-      '就读于广西科技大学与澳大利亚南十字星大学合作举办的软件工程专业本科项目（教育部批准书编号 MOE45AU2A20131469N，专业代码 080902H）。项目自 2014 年起开办，采用「4+0」培养模式，四年全程在广西科技大学完成，中澳双方共同制定培养方案，并通过澳大利亚计算机协会（ACS）认证。',
+      '就读于广西科技大学国际教育学院，专业是学校与澳大利亚南十字星大学合作举办的软件工程本科项目（教育部批准书编号 MOE45AU2A20131469N，专业代码 080902H）。项目自 2014 年起开办，采用「4+0」培养模式，四年全程在广西科技大学完成，中澳双方共同制定培养方案，并通过澳大利亚计算机协会（ACS）认证。',
     courses: [
       '程序设计基础',
       '数据结构与算法',
@@ -205,11 +204,16 @@ export const education = [
   },
 ]
 
-/* 中学阶段（学校名称待补充，补充后直接改这里的 name 字段） */
+/* 中学阶段 */
 export const middleSchools = [
-  { stage: '高中', period: '2018.09 - 2021.06', city: '辽宁 · 大连', name: '', pending: true },
-  { stage: '初中', period: '2015.09 - 2018.06', city: '辽宁 · 大连', name: '', pending: true },
-  { stage: '小学', period: '2009.09 - 2015.06', city: '辽宁 · 大连', name: '', pending: true },
+  {
+    stage: '高中',
+    period: '2018.09 - 2021.06',
+    city: '辽宁 · 大连',
+    name: '北京语言大学附属大连高级中学',
+  },
+  { stage: '初中', period: '2015.09 - 2018.06', city: '辽宁 · 大连', name: '大连市第十八中学' },
+  { stage: '小学', period: '2009.09 - 2015.06', city: '辽宁 · 大连', name: '辛寨子中心小学' },
 ]
 
 /* ------------------------------ 实践与技能 ------------------------------ */

@@ -210,6 +210,13 @@
   background: var(--line);
 }
 
+/* 小标题下的补充说明 */
+.mini-note {
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--ink-3);
+}
+
 /* ------------------------------- 圆点列表 ------------------------------- */
 .dot-list {
   display: flex;

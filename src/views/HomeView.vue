@@ -128,7 +128,7 @@ const facts = [
               </div>
               <div class="info-list__row">
                 <span class="info-list__key"><el-icon><School /></el-icon>学校</span>
-                <span class="info-list__val">广西科技大学</span>
+                <span class="info-list__val">广西科技大学 · 国际教育学院</span>
               </div>
               <div class="info-list__row">
                 <span class="info-list__key"><el-icon><Reading /></el-icon>专业</span>

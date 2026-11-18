@@ -30,7 +30,7 @@ useReveal()
           <div class="info-list">
             <div class="info-list__row">
               <span class="info-list__key"><el-icon><School /></el-icon>就读院校</span>
-              <span class="info-list__val">广西科技大学</span>
+              <span class="info-list__val">广西科技大学 · 国际教育学院</span>
             </div>
             <div class="info-list__row">
               <span class="info-list__key"><el-icon><Reading /></el-icon>专业</span>
@@ -66,6 +66,10 @@ useReveal()
               <div class="edu-card__major">
                 <el-tag effect="plain" round size="small">{{ edu.degree }}</el-tag>
                 <span>{{ edu.major }}</span>
+                <template v-if="edu.college">
+                  <span class="muted">·</span>
+                  <span class="muted">{{ edu.college }}</span>
+                </template>
                 <span class="muted">·</span>
                 <span class="muted">{{ edu.location }}</span>
               </div>
@@ -130,14 +134,9 @@ useReveal()
         <!-- 中学阶段 -->
         <div class="surface card-pad reveal" style="margin-top: 22px">
           <div class="mini-head">中学与小学阶段</div>
-          <el-alert
-            type="info"
-            :closable="false"
-            show-icon
-            style="margin-bottom: 6px"
-            title="学校名称待补充"
-            description="小学、初中、高中都在大连就读，具体学校名称填进 src/data/profile.js 的 middleSchools 即可自动显示。"
-          />
+          <p class="mini-note" style="margin-bottom: 6px">
+            小学到高中十二年都在大连读，按时间倒序排列。
+          </p>
           <div class="school-list">
             <div v-for="s in middleSchools" :key="s.stage" class="school-row">
               <span class="school-row__stage">{{ s.stage }}</span>
