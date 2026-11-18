@@ -4,13 +4,208 @@
  * - 用 336 × 216 的像素网格（每格 1 单位）绘制，shape-rendering=crispEdges 保证不糊
  * - 网格比原先加密一倍：同样是 1 单位，显示出来就是一个更细的像素点
  * - 所有动态效果走 CSS 动画，散落在 pixel-room.css 里，用 steps() 保持像素感
+ * - 交互：可点区域是叠在画面上的透明按钮，坐标按 viewBox 百分比换算，
+ *   不参与 SVG 绘制，所以缩放时永远对位；台灯 / 显示器 / 雨三个还能真的开关
  */
+import { computed, ref } from 'vue'
+
 const title = 'ROOM_01 · 我的房间'
 const meta = '02:41 AM'
+
+const VW = 336
+const VH = 216
+
+/** 可交互物件：x/y/w/h 是 SVG 里的坐标，直接换算成百分比用 */
+const items = [
+  {
+    id: 'window',
+    label: '窗外',
+    x: 12,
+    y: 20,
+    w: 114,
+    h: 100,
+    tag: 'WINDOW',
+    title: '窗外',
+    desc: '雨还在下，玻璃上糊着一层水汽。远处楼里的灯零零散散亮着，和这间屋子差不多。',
+    toggle: 'rain',
+  },
+  {
+    id: 'clock',
+    label: '挂钟',
+    x: 197,
+    y: 15,
+    w: 26,
+    h: 26,
+    tag: 'CLOCK',
+    title: '02:41 AM',
+    desc: '分针还在跳。写到这儿的时候已经两点四十了，明天照样有早八。',
+    tip: 'below',
+  },
+  {
+    id: 'poster',
+    label: '准星海报',
+    x: 228,
+    y: 14,
+    w: 44,
+    h: 42,
+    tag: 'APEX',
+    title: '准星海报',
+    desc: 'Apex 基本只单排，跳点、转移、输赢都自己扛。最高打到钻石——再往上单排容错太低，就停在这儿了。',
+    link: '/hobbies',
+    tip: 'below',
+  },
+  {
+    id: 'cards',
+    label: '三张卡',
+    x: 132,
+    y: 14,
+    w: 58,
+    h: 44,
+    tag: 'PTCG',
+    title: '展示框里的三张卡',
+    desc: '火、草、水各一张，挑的都是卡面插画好看的。只收藏不打牌，按系列整理进卡册。',
+    link: '/hobbies',
+    tip: 'below',
+  },
+  {
+    id: 'lamp',
+    label: '台灯',
+    x: 244,
+    y: 80,
+    w: 28,
+    h: 38,
+    tag: 'LAMP',
+    title: '台灯',
+    desc: '屏幕之外唯一的光源。开着写代码眼睛没那么累，关了房间就只剩显示器的绿光。',
+    toggle: 'lamp',
+  },
+  {
+    id: 'monitor',
+    label: '显示器',
+    x: 145,
+    y: 55,
+    w: 70,
+    h: 64,
+    tag: 'SCREEN',
+    title: '显示器',
+    desc: '左边编辑器，右边终端。这个点还在跑的是本地 dev server，改完一行保存就热更新。',
+    toggle: 'screen',
+  },
+  {
+    id: 'gunpla',
+    label: '高达',
+    x: 291,
+    y: 36,
+    w: 27,
+    h: 29,
+    tag: 'GUNPLA',
+    title: '架上的高达',
+    desc: '剪件、修水口、组装、贴贴纸，一堆板件变成一台机器人。比起摆着看，更享受拼的那几个小时。',
+    link: '/hobbies',
+  },
+  {
+    id: 'warframe',
+    label: '战甲',
+    x: 283,
+    y: 66,
+    w: 18,
+    h: 24,
+    tag: 'WARFRAME',
+    title: '暗色战甲',
+    desc: 'MOD 怎么插、武器怎么配、哪个战甲适合哪种任务，本质都是在解一道优化题。',
+    link: '/hobbies',
+  },
+  {
+    id: 'binder',
+    label: '卡册',
+    x: 282,
+    y: 92,
+    w: 50,
+    h: 36,
+    tag: 'PTCG',
+    title: '卡册与补充包',
+    desc: '拆包只为了看卡面，重复的就按系列塞进卡册。翻卡册本身就很解压。',
+    link: '/hobbies',
+  },
+  {
+    id: 'controller',
+    label: '手柄',
+    x: 215,
+    y: 103,
+    w: 27,
+    h: 14,
+    tag: 'INPUT',
+    title: '手柄',
+    desc: '常年摆在桌角，单排的时候用它手感更稳。摇杆边上那点橙光是呼吸灯。',
+  },
+  {
+    id: 'person',
+    label: '我',
+    x: 110,
+    y: 70,
+    w: 35,
+    h: 84,
+    tag: 'ME',
+    title: '还坐在这儿的人',
+    desc: '凌晨两点四十，还在补一个没复现出来的 bug。这个房间就是我大部分时间的坐标。',
+  },
+  {
+    id: 'plant',
+    label: '绿萝',
+    x: 24,
+    y: 116,
+    w: 30,
+    h: 40,
+    tag: 'PLANT',
+    title: '绿萝',
+    desc: '房间里唯一需要浇水的成员，目前还活着，叶子会跟着风轻轻晃。',
+  },
+]
+
+const hovered = ref('')
+const activeId = ref('')
+const active = computed(() => items.find((i) => i.id === activeId.value) || null)
+
+const lampOn = ref(true)
+const screenOn = ref(true)
+const rainOn = ref(true)
+
+const toggles = {
+  lamp: { on: lampOn, label: () => (lampOn.value ? '关掉台灯' : '打开台灯') },
+  screen: { on: screenOn, label: () => (screenOn.value ? '关掉显示器' : '点亮显示器') },
+  rain: { on: rainOn, label: () => (rainOn.value ? '让雨停一会' : '继续下雨') },
+}
+
+const activeToggleLabel = computed(() =>
+  active.value?.toggle ? toggles[active.value.toggle].label() : ''
+)
+
+function toggle(name) {
+  if (name === 'lamp') lampOn.value = !lampOn.value
+  if (name === 'screen') screenOn.value = !screenOn.value
+  if (name === 'rain') rainOn.value = !rainOn.value
+}
+
+/** 百分比定位，保证和 SVG 严格对齐 */
+function hotspotStyle(item) {
+  return {
+    left: `${(item.x / VW) * 100}%`,
+    top: `${(item.y / VH) * 100}%`,
+    width: `${(item.w / VW) * 100}%`,
+    height: `${(item.h / VH) * 100}%`,
+  }
+}
 </script>
 
 <template>
-  <figure class="pixel-room">
+  <figure
+    class="pixel-room"
+    :class="{
+      'is-lamp-off': !lampOn,
+      'is-screen-off': !screenOn,
+      'is-rain-off': !rainOn,
+    }"
+  >
     <div class="pixel-room__bar">
       <span class="pixel-room__leds">
         <i></i><i></i><i></i>
@@ -450,8 +645,8 @@ const meta = '02:41 AM'
         <rect x="124" y="116" width="154" height="1" fill="#5c4f43" />
         <rect x="124" y="120" width="154" height="1" fill="#3a322b" />
         <!-- 屏幕投在桌面上的反光 -->
-        <rect x="149" y="121" width="62" height="2" fill="#5cf0c0" opacity="0.22" />
-        <rect x="149" y="123" width="62" height="3" fill="#5cf0c0" opacity="0.07" />
+        <rect class="px-screen-glow" x="149" y="121" width="62" height="2" fill="#5cf0c0" opacity="0.22" />
+        <rect class="px-screen-glow" x="149" y="123" width="62" height="3" fill="#5cf0c0" opacity="0.07" />
         <!-- 桌腿 -->
         <rect x="128" y="121" width="5" height="35" fill="#3a322b" />
         <rect x="128" y="121" width="1" height="35" fill="#4a4038" />
@@ -513,7 +708,7 @@ const meta = '02:41 AM'
           </g>
           <rect x="186" y="60" width="1" height="42" fill="#16262a" />
           <rect class="px-cursor" x="177" y="96" width="3" height="4" fill="#5cf0c0" />
-          <rect x="149" y="59" width="62" height="46" fill="url(#pr-screenglow)" opacity="0.45" />
+          <rect class="px-screen-glow" x="149" y="59" width="62" height="46" fill="url(#pr-screenglow)" opacity="0.45" />
         </g>
       </g>
 
@@ -558,7 +753,7 @@ const meta = '02:41 AM'
           <rect x="244" y="84" width="20" height="8" fill="#46524c" />
           <rect x="246" y="84" width="16" height="1" fill="#5b6a63" />
           <rect x="244" y="91" width="20" height="1" fill="#3a4640" />
-          <rect x="246" y="91" width="4" height="2" fill="#f7ecc9" />
+          <rect class="px-bulb" x="246" y="91" width="4" height="2" fill="#f7ecc9" />
         </g>
         <!-- 摊在桌上的两张卡 -->
         <g>
@@ -674,7 +869,7 @@ const meta = '02:41 AM'
 
       <!-- ===================== 灯光 + 漂浮的灰尘 ===================== -->
       <ellipse class="px-lamp" cx="242" cy="104" rx="50" ry="30" fill="url(#pr-lamp-glow)" />
-      <ellipse cx="180" cy="118" rx="46" ry="18" fill="url(#pr-screen-glow)" />
+      <ellipse class="px-screen-glow" cx="180" cy="118" rx="46" ry="18" fill="url(#pr-screen-glow)" />
       <g fill="#cfe8e0" opacity="0.38">
         <rect class="px-dust" x="176" y="56" width="1" height="1" />
         <rect class="px-dust px-d1" x="224" y="68" width="1" height="1" />
@@ -684,11 +879,64 @@ const meta = '02:41 AM'
         <rect class="px-dust" x="212" y="104" width="1" height="1" />
       </g>
     </svg>
+
+      <!-- 可点区域：透明按钮叠在画面上，坐标来自 SVG 网格 -->
+      <div class="pixel-room__hits" @keydown.esc="activeId = ''">
+        <button
+          v-for="item in items"
+          :key="item.id"
+          type="button"
+          class="pixel-room__hit"
+          :class="{
+            'is-active': activeId === item.id,
+            'is-hovered': hovered === item.id,
+          }"
+          :style="hotspotStyle(item)"
+          :aria-label="item.label"
+          @mouseenter="hovered = item.id"
+          @mouseleave="hovered = ''"
+          @focus="hovered = item.id"
+          @blur="hovered = ''"
+          @click="activeId = activeId === item.id ? '' : item.id"
+        >
+          <span class="pixel-room__hit-tip" :class="{ 'is-below': item.tip === 'below' }">
+            {{ item.label }}
+          </span>
+        </button>
+      </div>
     </div>
 
-    <figcaption class="pixel-room__cap">
-      <span class="pixel-room__cap-label">CUTAWAY</span>
-      <span>夜里的房间：屏幕还亮着，架子上的高达站好，卡册摊在桌上，窗外在下雨。</span>
+    <figcaption class="pixel-room__cap" aria-live="polite">
+      <template v-if="active">
+        <span class="pixel-room__cap-label">{{ active.tag }}</span>
+        <div class="pixel-room__detail">
+          <div class="pixel-room__detail-title">{{ active.title }}</div>
+          <p class="pixel-room__detail-desc">{{ active.desc }}</p>
+          <div class="pixel-room__detail-actions">
+            <button
+              v-if="active.toggle"
+              type="button"
+              class="pixel-room__act"
+              @click="toggle(active.toggle)"
+            >
+              {{ activeToggleLabel }}
+            </button>
+            <router-link v-if="active.link" :to="active.link" class="pixel-room__act pixel-room__act--link">
+              看兴趣页
+            </router-link>
+            <button type="button" class="pixel-room__act pixel-room__act--ghost" @click="activeId = ''">
+              收起
+            </button>
+          </div>
+        </div>
+      </template>
+      <template v-else>
+        <span class="pixel-room__cap-label">CUTAWAY</span>
+        <span>
+          夜里的房间：屏幕还亮着，架子上的高达站好，卡册摊在桌上，窗外在下雨。
+          <em class="pixel-room__hint">点一下房间里的东西试试。</em>
+        </span>
+      </template>
     </figcaption>
   </figure>
 </template>

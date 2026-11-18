@@ -70,6 +70,7 @@
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
   pointer-events: none;
   background: repeating-linear-gradient(
     to bottom,
@@ -93,6 +94,7 @@
   display: flex;
   align-items: flex-start;
   gap: 10px;
+  min-height: 68px;
   padding: 11px 14px 12px;
   border-top: 1px solid var(--line-soft);
   font-size: 13px;
@@ -107,6 +109,168 @@
   font-size: 10.5px;
   letter-spacing: 0.16em;
   color: var(--brand);
+}
+
+/* ---------------------------- 交互热区 ---------------------------- */
+
+.pixel-room__hits {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+/* 透明按钮：只有边框和标签是可见的，画面上不挡任何像素 */
+.pixel-room__hit {
+  position: absolute;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.16s var(--ease), box-shadow 0.16s var(--ease);
+}
+
+.pixel-room__hit:hover,
+.pixel-room__hit.is-hovered {
+  background: rgba(92, 240, 192, 0.07);
+  box-shadow: inset 0 0 0 1px rgba(92, 240, 192, 0.5);
+}
+
+.pixel-room__hit.is-active {
+  background: rgba(92, 240, 192, 0.1);
+  box-shadow: inset 0 0 0 1px var(--brand), inset 0 0 22px rgba(92, 240, 192, 0.16);
+}
+
+.pixel-room__hit:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+/* 悬停时冒出的小标签 */
+.pixel-room__hit-tip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 5px);
+  transform: translate(-50%, 4px);
+  padding: 3px 7px;
+  border: 1px solid rgba(92, 240, 192, 0.32);
+  border-radius: 3px;
+  background: rgba(8, 17, 15, 0.94);
+  color: var(--brand);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.14s var(--ease), transform 0.14s var(--ease);
+}
+
+.pixel-room__hit-tip.is-below {
+  bottom: auto;
+  top: calc(100% + 5px);
+  transform: translate(-50%, -4px);
+}
+
+.pixel-room__hit:hover .pixel-room__hit-tip,
+.pixel-room__hit.is-hovered .pixel-room__hit-tip {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* ---------------------------- 说明面板 ---------------------------- */
+
+.pixel-room__hint {
+  font-style: normal;
+  color: var(--brand);
+  opacity: 0.85;
+}
+
+.pixel-room__detail {
+  flex: 1;
+  min-width: 0;
+}
+
+.pixel-room__detail-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+}
+
+.pixel-room__detail-desc {
+  margin: 5px 0 0;
+  font-size: 12.5px;
+  line-height: 1.62;
+  color: var(--ink-3);
+}
+
+.pixel-room__detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.pixel-room__act {
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--ink-2);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.16s var(--ease), color 0.16s var(--ease),
+    background 0.16s var(--ease);
+}
+
+.pixel-room__act:hover {
+  border-color: rgba(92, 240, 192, 0.45);
+  color: var(--brand);
+  background: rgba(92, 240, 192, 0.07);
+}
+
+.pixel-room__act--link {
+  border-color: rgba(92, 240, 192, 0.32);
+  color: var(--brand);
+}
+
+.pixel-room__act--ghost {
+  color: var(--ink-4);
+}
+
+/* ------------------------ 开关灯 / 屏幕 / 雨 ------------------------ */
+
+.px-lamp,
+.px-bulb,
+.px-screen-glow,
+.px-rain,
+.px-code,
+.px-cursor {
+  transition: opacity 0.4s var(--ease);
+}
+
+.is-lamp-off .px-lamp {
+  opacity: 0 !important;
+}
+
+.is-lamp-off .px-bulb {
+  fill: #4c5854;
+}
+
+.is-screen-off .px-code,
+.is-screen-off .px-cursor,
+.is-screen-off .px-screen-glow {
+  opacity: 0 !important;
+}
+
+.is-rain-off .px-rain {
+  animation: none;
+  opacity: 0;
 }
 
 /* 首屏房间自己的入场：不依赖 IntersectionObserver，避免观察器失效时停在半透明 */
