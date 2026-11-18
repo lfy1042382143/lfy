@@ -109,6 +109,25 @@ npm run preview
 
 构建产物是纯静态文件，`dist/` 直接丢到任意静态服务器即可。路由使用 HTML5 History 模式，**服务器需要把未知路径回退到 `index.html`**。
 
+### 线上环境（已部署）
+
+| 项 | 值 |
+| --- | --- |
+| 访问地址 | <https://mylfy.cat21432961.online> |
+| 托管平台 | Cloudflare Pages，项目名 `mylfy-blog`，生产分支 `main` |
+| 平台默认域名 | <https://mylfy-blog.pages.dev>（可作备用入口） |
+| DNS | `mylfy` → CNAME `mylfy-blog.pages.dev`，已开启 Cloudflare 代理（橙色云） |
+| 证书 | Cloudflare 自动签发（Google Trust Services），无需手动续期 |
+| SPA 回退 | `public/_redirects` 中 `/*  /index.html  200` |
+
+重新发布：
+
+```bash
+npm run deploy      # = vite build + wrangler pages deploy dist --project-name mylfy-blog
+```
+
+> 首次使用需 `npx wrangler login` 授权；CI 环境改用 `CLOUDFLARE_API_TOKEN`（需 Pages:Edit 与 Zone:DNS:Edit 权限）。
+
 ### 方案一：Nginx（自建服务器 / 云主机，推荐）
 
 ```nginx
