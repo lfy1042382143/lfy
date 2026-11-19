@@ -19,12 +19,14 @@ const accentClass = (accent) => `project-card--${accent}`
           </h1>
           <p class="page-head__desc">
             除了这个博客，我还搭了几个小项目，都挂在同一个域名下面。点一下卡片就能跳过去——
-            想看书的、想玩游戏的、想听歌的，各归各的地方。
+            看书的、玩游戏的、听歌的、聊天的、画图的，各归各的地方。
           </p>
           <div class="page-head__meta">
             <span class="chip chip--brand">藏书阁</span>
             <span class="chip">深渊试炼</span>
             <span class="chip">声场</span>
+            <span class="chip">猫咪语音助手</span>
+            <span class="chip">生图工作站</span>
           </div>
         </div>
         <div class="page-head__aside">
@@ -106,6 +108,24 @@ const accentClass = (accent) => `project-card--${accent}`
                   </div>
                 </div>
               </div>
+              <div class="tile reveal">
+                <div class="tile__icon">🐱</div>
+                <div>
+                  <div class="tile__title">猫咪语音助手</div>
+                  <div class="tile__desc">
+                    第一次做语音交互：把「说话 → 识别 → 回应」串成一条链，聊起来比打字轻松多了。
+                  </div>
+                </div>
+              </div>
+              <div class="tile reveal">
+                <div class="tile__icon">🖼️</div>
+                <div>
+                  <div class="tile__title">生图工作站</div>
+                  <div class="tile__desc">
+                    接上了 Qwen-Image-3.0，写一段提示词就能出图，算是自己的 AI 画画工作台。
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -113,7 +133,7 @@ const accentClass = (accent) => `project-card--${accent}`
             <div class="mini-head">小提示</div>
             <ul class="dot-list">
               <li>点击卡片会在新标签页打开对应站点，不会离开当前页面。</li>
-              <li>三个项目用的是同一个根域名，只是子域不同。</li>
+              <li>几个项目用的是同一个根域名，只是子域不同。</li>
               <li>如果你对某个项目感兴趣，欢迎去逛逛，也欢迎提建议。</li>
             </ul>
 

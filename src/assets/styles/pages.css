@@ -1188,6 +1188,14 @@
   border-color: #6c9de0;
 }
 
+.project-card--violet:hover {
+  border-color: #b18cf0;
+}
+
+.project-card--coral:hover {
+  border-color: #f07a5c;
+}
+
 .project-card__top {
   display: flex;
   align-items: center;

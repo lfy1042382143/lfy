@@ -346,6 +346,26 @@ export const projects = [
     tags: ['音乐', '播放', '双端适配'],
     accent: 'deep',
   },
+  {
+    id: 'voice-chat',
+    name: '猫咪语音助手',
+    en: 'Voice Chat',
+    url: 'https://voice-chat.cat21432961.online',
+    icon: '🐱',
+    desc: '开口就能聊的语音助手，说句话它就会回应——对话不用打字，动嘴就行。',
+    tags: ['语音', 'AI 对话', '助手'],
+    accent: 'violet',
+  },
+  {
+    id: 'images',
+    name: '生图工作站',
+    en: 'Qwen-Image 3.0',
+    url: 'https://images.cat21432961.online',
+    icon: '🖼️',
+    desc: '基于 Qwen-Image-3.0 的文生图工作站，输入提示词就能生成图片。',
+    tags: ['AI 生图', 'Qwen', '文生图'],
+    accent: 'coral',
+  },
 ]
 
 /* ------------------------------ 首页亮点 ------------------------------ */
