@@ -322,8 +322,8 @@ export const projects = [
     en: 'Book Archive',
     url: 'https://book.cat21432961.online',
     icon: '📚',
-    desc: '我的图书与小说站点，用来归档读过和想读的书，附简单的阅读记录与书摘。',
-    tags: ['阅读', '归档', '书摘'],
+    desc: '个人图书管理：收藏小说、散文与技术书，支持自动分章与阅读进度记忆。',
+    tags: ['阅读', '书架', '进度记忆'],
     accent: 'brand',
   },
   {
@@ -332,8 +332,8 @@ export const projects = [
     en: 'Abyss Trial',
     url: 'https://game.cat21432961.online',
     icon: '🎮',
-    desc: '一个小游戏项目（Abyss Trial），偏动作与关卡试炼的玩法，还在持续打磨。',
-    tags: ['游戏', '动作', '关卡'],
+    desc: '实时 2D 俯视角 Roguelike：WASD 走位躲避弹幕，在源源不断的敌人中生存，击杀精英获取装备宝箱。',
+    tags: ['游戏', 'Roguelike', '弹幕生存'],
     accent: 'gold',
   },
   {
@@ -342,8 +342,8 @@ export const projects = [
     en: 'Online Music',
     url: 'https://music.cat21432961.online',
     icon: '🎵',
-    desc: '在线音乐站点，用来整理常听的曲目和歌单，也算给自己搭的一个音乐角落。',
-    tags: ['音乐', '歌单', '播放'],
+    desc: '一个轻量的在线音乐播放站，桌面与手机通用，随时随地打开就能听。',
+    tags: ['音乐', '播放', '双端适配'],
     accent: 'deep',
   },
 ]
